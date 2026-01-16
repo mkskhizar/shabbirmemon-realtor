@@ -1,268 +1,431 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shabbir Memon Realtor | ISB & KHI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shabbir Memon Realtor – ISB & KHI</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config for Custom Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#002b5c',
+                        secondary: '#15727a',
+                        accent: '#e63946',
+                        bgLight: '#f8f9fa',
+                    }
+                }
+            }
+        }
+    </script>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
 
-<style>
-/* ===== Reset & body ===== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: Inter, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif; line-height: 1.6; background: #f8f9fa; color: #222; }
+        body {
+            background-color: #f8f9fa;
+        }
 
-/* ===== Header ===== */
-header {
-  width: 100%;
-  height: 500px;
-  background: linear-gradient(rgba(0,43,92,0.6), rgba(0,43,92,0.6)), url('https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/hero%20banner.jpg.png') center/cover no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  color: white;
-  text-align: center;
-}
+        /* Custom Header Styling per requirements */
+        .hero-section {
+            height: 500px;
+            background: linear-gradient(rgba(0,43,92,0.7), rgba(0,43,92,0.7)), url('https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/hero%20banner.jpg.png') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
 
-header .header-top {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  position: absolute;
-  top: 0;
-  height: 70px;
-  background-color: rgba(255,255,255,0.95);
-  flex-wrap: wrap;
-}
+        /* Hero Search Styling */
+        .hero-search {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
 
-header .logo {
-  display: flex;
-  align-items: center;
-  margin: 5px 0;
-}
+        .hero-search input[type="text"] {
+            flex: 1;
+            padding: 16px 20px;
+            border-radius: 6px 0 0 6px;
+            border: none;
+            outline: none;
+            color: #333;
+            font-size: 1rem;
+        }
 
-header .logo img {
-  max-height: 50px;
-  margin-right: 12px;
-}
+        .hero-search button {
+            padding: 16px 24px;
+            border-radius: 0 6px 6px 0;
+            background: #15727a;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border: none;
+        }
 
-header .logo span {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #002b5c;
-}
+        .hero-search button:hover {
+            background: #e63946;
+        }
 
-header .nav-links {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 5px 0;
-}
+        /* Property Card Hover Effects */
+        .property-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
 
-header .nav-links a {
-  margin: 5px 12px;
-  text-decoration: none;
-  font-weight: 600;
-  color: #15727a;
-  transition: 0.3s;
-}
+        /* Table Styling */
+        .conversion-table th {
+            background-color: #002b5c;
+            color: white;
+        }
+        .conversion-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-header .nav-links a:hover { color: #e63946; }
-
-/* ===== Hero Search ===== */
-header .hero-search {
-  margin-top: 150px;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 600px;
-}
-
-header .hero-search input[type="text"] {
-  padding: 12px 15px;
-  flex: 1;
-  border-radius: 6px 0 0 6px;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-}
-
-header .hero-search button {
-  padding: 12px 18px;
-  border: none;
-  background: #15727a;
-  color: white;
-  font-weight: 600;
-  border-radius: 0 6px 6px 0;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-header .hero-search button:hover { background: #e63946; }
-
-/* ===== Container for pages ===== */
-.container { max-width: 1200px; margin: 50px auto; padding: 0 20px; }
-
-/* ===== Section Titles ===== */
-h2 { color: #002b5c; text-align: center; font-size: 2.2rem; margin-bottom: 30px; position: relative; }
-h2::after {
-  content: '';
-  width: 80px;
-  height: 4px;
-  background: #ffd700;
-  display: block;
-  margin: 15px auto 0;
-  border-radius: 2px;
-}
-
-/* ===== Grid for properties ===== */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-
-.property-card {
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-  transition: all 0.3s;
-}
-
-.property-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.18); }
-
-.property-card img { width: 100%; height: 220px; object-fit: cover; }
-
-.card-body { padding: 15px; }
-
-.price { background: #e63946; color: white; padding: 6px 14px; border-radius: 30px; font-weight: 700; display: inline-block; margin-bottom: 8px; }
-
-.details { color: #555; margin: 8px 0; font-size: 0.95rem; }
-
-.whatsapp-btn { display: block; text-align: center; background: #25D366; color: white; padding: 10px; border-radius: 30px; text-decoration: none; font-weight: 700; margin-top: 12px; transition: 0.3s; font-size: 0.95rem; }
-.whatsapp-btn:hover { background: #128C7E; }
-
-/* ===== Footer ===== */
-footer {
-  background: #002b5c;
-  color: white;
-  text-align: center;
-  padding: 30px 20px;
-  margin-top: 60px;
-  font-size: 0.95rem;
-}
-
-/* ===== Conversion Table ===== */
-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; }
-table, th, td { border: 1px solid #ccc; }
-th, td { padding: 8px; text-align: center; }
-
-/* ===== About page ===== */
-.about { max-width: 800px; margin: 40px auto; text-align: center; font-size: 1rem; color: #333; line-height: 1.6; }
-
-/* ===== Responsive ===== */
-@media(max-width:1024px){
-  header { height: 450px; }
-  header .hero-search { max-width: 500px; }
-}
-
-@media(max-width:768px){
-  header { height: 420px; }
-  header .logo span { font-size: 1rem; }
-  header .nav-links a { margin: 4px 8px; font-size: 0.9rem; }
-  header .hero-search { flex-direction: column; margin-top: 120px; }
-  header .hero-search input, header .hero-search button { width: 90%; margin: 5px 0; border-radius: 6px; }
-  h2 { font-size: 2rem; }
-  .property-card img { height: 200px; }
-}
-
-@media(max-width:480px){
-  header { height: 380px; }
-  header .logo img { max-height: 40px; }
-  header .hero-search { margin-top: 100px; }
-  h2 { font-size: 1.8rem; }
-  .property-card img { height: 180px; }
-}
-</style>
+        /* Sticky Nav Fixes */
+        .sticky-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
-<body>
+<body class="text-gray-800 antialiased flex flex-col min-h-screen">
 
-<!-- Header -->
-<header>
-  <div class="header-top">
-    <div class="logo">
-      <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/logo.png.png" alt="Logo">
-      <span>Shabbir Memon Realtor ISB & KHI</span>
-    </div>
-    <div class="nav-links">
-      <a href="#house">House for Sale</a>
-      <a href="#apartment">Apartment for Sale</a>
-      <a href="#commercial">Commercial Property</a>
-      <a href="#conversion">Conversion</a>
-      <a href="#about">About</a>
-    </div>
-  </div>
+    <!-- Navigation -->
+    <nav class="sticky-nav sticky top-0 z-50 w-full transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo Area -->
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <img class="h-12 w-auto" src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/logo.png.png" alt="Shabbir Memon Logo">
+                    <div class="flex flex-col">
+                        <span class="font-bold text-primary text-lg leading-tight">Shabbir Memon</span>
+                        <span class="text-xs text-secondary font-medium tracking-wide">REALTOR ISB & KHI</span>
+                    </div>
+                </div>
 
-  <!-- Hero search -->
-  <div class="hero-search">
-    <input type="text" placeholder="Search properties by city, area, price...">
-    <button>Search</button>
-  </div>
-</header>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#properties" class="text-secondary hover:text-accent font-medium transition-colors">House for Sale</a>
+                    <a href="#properties" class="text-secondary hover:text-accent font-medium transition-colors">Apartment for Sale</a>
+                    <a href="#properties" class="text-secondary hover:text-accent font-medium transition-colors">Commercial</a>
+                    <a href="#conversion" class="text-secondary hover:text-accent font-medium transition-colors">Conversion</a>
+                    <a href="#about" class="text-secondary hover:text-accent font-medium transition-colors">About</a>
+                    <a href="https://wa.me/923332964231" class="bg-secondary hover:bg-accent text-white px-4 py-2 rounded-md font-medium transition-colors">
+                        <i class="fab fa-whatsapp mr-1"></i> Contact
+                    </a>
+                </div>
 
-<!-- Featured Properties -->
-<div class="container" id="house">
-  <h2>Featured Premium Properties</h2>
-  <div class="grid">
-    <div class="property-card">
-      <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/apartment%20for%20sale%20johar%20.jpg" alt="">
-      <div class="card-body">
-        <div class="price">Exclusive Direct Price</div>
-        <h3>3-Bed Flat – Gulistan-e-Jauhar Block 15</h3>
-        <p class="details">1400 Sq Ft • 2nd Floor • Lift • Generator • Road Facing • Leased • Key Available</p>
-        <a href="https://wa.me/923332964231" class="whatsapp-btn">WhatsApp Now</a>
-      </div>
-    </div>
-    <div class="property-card">
-      <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building%20for%20sale%20karachi.jpg.jpg" alt="">
-      <div class="card-body">
-        <div class="price">16 Crore (Demand)</div>
-        <h3>Commercial Building – Bahadurabad</h3>
-        <p class="details">2100 Sq Ft • 745k Monthly Income • 10-Year Lease • Prime Location</p>
-        <a href="https://wa.me/923332964231" class="whatsapp-btn">WhatsApp Now</a>
-      </div>
-    </div>
-  </div>
-</div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-primary hover:text-accent focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-<!-- Conversion Table -->
-<div class="container" id="conversion">
-  <h2>Conversion Table</h2>
-  <table>
-    <tr><th>Marla</th><th>Sq.Ft</th><th>Sq.Yard</th><th>Kanal</th><th>Acre</th></tr>
-    <tr><td>1</td><td>272</td><td>30.22</td><td>0.03</td><td>0.006</td></tr>
-    <tr><td>5</td><td>1360</td><td>151.1</td><td>0.15</td><td>0.03</td></tr>
-    <tr><td>10</td><td>2720</td><td>302.2</td><td>0.3</td><td>0.06</td></tr>
-    <tr><td>20</td><td>5440</td><td>604.4</td><td>0.6</td><td>0.12</td></tr>
-  </table>
-</div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg">
+                <a href="#properties" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-accent hover:bg-gray-50">House for Sale</a>
+                <a href="#properties" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-accent hover:bg-gray-50">Apartment for Sale</a>
+                <a href="#properties" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-accent hover:bg-gray-50">Commercial Property</a>
+                <a href="#conversion" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-accent hover:bg-gray-50">Conversion Tool</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-accent hover:bg-gray-50">About Us</a>
+            </div>
+        </div>
+    </nav>
 
-<!-- About Page -->
-<div class="container about" id="about">
-  <h2>About Shabbir Memon</h2>
-  <p>Since 1996, helping investors and families buy verified properties in Islamabad & Karachi.</p>
-  <p><strong>Location:</strong> Office No. 4, Iqra Arcade, Gulshan-e-Iqbal Block 6, Karachi, Pakistan</p>
-  <p><strong>WhatsApp:</strong> <a href="https://wa.me/923332964231" style="color:#15727a;">+92 333 2964231</a></p>
-  <p><strong>Email:</strong> <a href="mailto:khizarsorathia@gmail.com" style="color:#15727a;">khizarsorathia@gmail.com</a></p>
-</div>
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4 drop-shadow-md">Find Your Dream Property</h1>
+        <p class="text-lg md:text-xl text-gray-200 mb-6 max-w-2xl">Premium real estate opportunities in Islamabad & Karachi. Verified listings, genuine deals.</p>
+        
+        <div class="hero-search">
+            <input type="text" id="searchInput" placeholder="Search properties by city, area, price...">
+            <button onclick="document.getElementById('properties').scrollIntoView();"><i class="fas fa-search mr-2"></i> Search</button>
+        </div>
+    </header>
 
-<!-- Footer -->
-<footer>
-  <p>Shabbir Memon Realtor | ISB & KHI</p>
-  <p>📞 +92 335-9282233 • WhatsApp: +92 333-2964231</p>
-  <p>Direct & Genuine Deals Only • Dealers Welcome</p>
-</footer>
+    <!-- Listings Section -->
+    <section id="properties" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-primary mb-2">Featured Listings</h2>
+            <div class="h-1 w-20 bg-accent mx-auto rounded"></div>
+            <p class="mt-4 text-gray-600">Hand-picked properties for investment and living.</p>
+        </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Card 1: Johar Apartment -->
+            <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full">
+                <div class="relative">
+                    <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/apartment%20for%20sale%20johar%20.jpg" alt="Flat for Sale" class="w-full h-64 object-cover">
+                    <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">For Sale</span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="text-2xl font-bold text-secondary mb-2">Call for Price</div>
+                    <h3 class="text-xl font-bold text-primary mb-3">3-Bed Flat – Gulistan-e-Jauhar Block 15</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        <i class="fas fa-ruler-combined mr-1 text-secondary"></i> 1400 Sq Ft • 2nd Floor • Lift • Generator • Road Facing • Leased
+                    </p>
+                    <a href="https://wa.me/923332964231?text=I'm%20interested%20in%20the%20Johar%20Block%2015%20Flat" target="_blank" class="whatsapp-btn w-full block text-center bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3 rounded-lg transition-colors">
+                        <i class="fab fa-whatsapp text-lg mr-2"></i> WhatsApp Now
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2: Bahadurabad Building -->
+            <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full">
+                <div class="relative">
+                    <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building%20for%20sale%20karachi.jpg.jpg" alt="Building for Sale" class="w-full h-64 object-cover">
+                    <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">Commercial</span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="text-2xl font-bold text-secondary mb-2">Exclusive Deal</div>
+                    <h3 class="text-xl font-bold text-primary mb-3">Commercial Building - Bahadurabad</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        <i class="fas fa-building mr-1 text-secondary"></i> Prime Location • High ROI • Complete Paperwork • Ideal for Investment
+                    </p>
+                    <a href="https://wa.me/923332964231?text=I'm%20interested%20in%20the%20Bahadurabad%20Building" target="_blank" class="whatsapp-btn w-full block text-center bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3 rounded-lg transition-colors">
+                        <i class="fab fa-whatsapp text-lg mr-2"></i> WhatsApp Now
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3: F-11 House -->
+            <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full">
+                <div class="relative">
+                    <img src="https://media.zameen.com/thumbnails/24893762-800x600.jpeg" alt="House for Sale" class="w-full h-64 object-cover">
+                    <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">Hot Listing</span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="text-2xl font-bold text-secondary mb-2">PKR 8.5 Crore</div>
+                    <h3 class="text-xl font-bold text-primary mb-3">Luxury House – F-11 Islamabad</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        <i class="fas fa-bed mr-1 text-secondary"></i> 5 Bed • 6 Bath • Modern Architecture • Servant Quarter • Lush Green Lawn
+                    </p>
+                    <a href="https://wa.me/923332964231?text=I'm%20interested%20in%20the%20F-11%20House" target="_blank" class="whatsapp-btn w-full block text-center bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3 rounded-lg transition-colors">
+                        <i class="fab fa-whatsapp text-lg mr-2"></i> WhatsApp Now
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 4: E-11 Rent House -->
+            <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full">
+                <div class="relative">
+                    <img src="https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=2541634936227223" alt="House for Rent" class="w-full h-64 object-cover">
+                    <span class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">For Rent</span>
+                </div>
+                <div class="p-6 flex-1 flex flex-col">
+                    <div class="text-2xl font-bold text-secondary mb-2">PKR 2.5 Lac/Mo</div>
+                    <h3 class="text-xl font-bold text-primary mb-3">Spacious House – E-11 Islamabad</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">
+                        <i class="fas fa-home mr-1 text-secondary"></i> 4 Bed • Independent • Double Story • Close to Main Road • Secure Area
+                    </p>
+                    <a href="https://wa.me/923332964231?text=I'm%20interested%20in%20the%20E-11%20Rental" target="_blank" class="whatsapp-btn w-full block text-center bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3 rounded-lg transition-colors">
+                        <i class="fab fa-whatsapp text-lg mr-2"></i> WhatsApp Now
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Conversion Table Section -->
+    <section id="conversion" class="bg-white py-16 border-t border-gray-200">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-primary mb-2">Land Conversion Tool</h2>
+                <p class="text-gray-600">Quick reference for real estate measurements in Pakistan.</p>
+            </div>
+            
+            <div class="overflow-x-auto shadow-lg rounded-lg border border-gray-200">
+                <table class="w-full text-left border-collapse conversion-table">
+                    <thead>
+                        <tr>
+                            <th class="p-4 text-sm font-semibold tracking-wide">Marla</th>
+                            <th class="p-4 text-sm font-semibold tracking-wide">Sq. Ft</th>
+                            <th class="p-4 text-sm font-semibold tracking-wide">Sq. Yard</th>
+                            <th class="p-4 text-sm font-semibold tracking-wide">Kanal</th>
+                            <th class="p-4 text-sm font-semibold tracking-wide">Acre</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        <tr>
+                            <td class="p-4 border-b">1</td>
+                            <td class="p-4 border-b">272</td>
+                            <td class="p-4 border-b">30.22</td>
+                            <td class="p-4 border-b">0.05</td>
+                            <td class="p-4 border-b">0.006</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b">5</td>
+                            <td class="p-4 border-b">1360</td>
+                            <td class="p-4 border-b">151.1</td>
+                            <td class="p-4 border-b">0.25</td>
+                            <td class="p-4 border-b">0.03</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b">10</td>
+                            <td class="p-4 border-b">2720</td>
+                            <td class="p-4 border-b">302.2</td>
+                            <td class="p-4 border-b">0.5</td>
+                            <td class="p-4 border-b">0.06</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b">20 (1 Kanal)</td>
+                            <td class="p-4 border-b">5440</td>
+                            <td class="p-4 border-b">604.4</td>
+                            <td class="p-4 border-b">1.0</td>
+                            <td class="p-4 border-b">0.125</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b">160 (8 Kanal)</td>
+                            <td class="p-4 border-b">43,560</td>
+                            <td class="p-4 border-b">4,840</td>
+                            <td class="p-4 border-b">8.0</td>
+                            <td class="p-4 border-b">1.0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-xs text-gray-500 mt-4 text-center">* Measurements vary slightly by region (e.g., Lahore vs Islamabad). Standard 272 sq ft/Marla used.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-bgLight">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-secondary">
+                    <h2 class="text-3xl font-bold text-primary mb-6">About Us</h2>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        Since <span class="font-bold text-secondary">1996</span>, we have been dedicated to helping investors and families find verified, premium properties in Islamabad & Karachi. We pride ourselves on transparency, integrity, and securing the best deals for our clients.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent text-xl"></i>
+                            <div>
+                                <h4 class="font-bold text-primary">Office Location</h4>
+                                <p class="text-gray-600">Office No. 4, Iqra Arcade, Gulshan-e-Iqbal Block 6, Karachi, Pakistan</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3 text-accent text-xl"></i>
+                            <div>
+                                <h4 class="font-bold text-primary">Email Us</h4>
+                                <p class="text-gray-600">khizarsorathia@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Simple Contact Card / CTA -->
+                <div class="relative bg-primary rounded-xl p-8 text-white text-center shadow-xl overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E');"></div>
+                    <h3 class="text-2xl font-bold mb-4">Want to Sell or Buy?</h3>
+                    <p class="mb-8 text-gray-200">Get a free consultation for your property today. We deal in direct and genuine listings.</p>
+                    <a href="https://wa.me/923332964231" class="inline-block bg-white text-primary hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
+                        <i class="fab fa-whatsapp mr-2 text-[#25D366]"></i> +92 333 2964231
+                    </a>
+                    <p class="mt-4 text-sm opacity-70">Dealers Welcome</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <img class="h-16 w-auto mx-auto mb-4 opacity-90 grayscale brightness-200" src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/logo.png.png" alt="Shabbir Memon Logo">
+            
+            <h3 class="text-xl font-bold mb-2 tracking-wide">Shabbir Memon Realtor | ISB & KHI</h3>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6 my-6 text-gray-300">
+                <p><i class="fas fa-phone-alt mr-2"></i> +92 335-9282233</p>
+                <span class="hidden md:inline">•</span>
+                <p><i class="fab fa-whatsapp mr-2"></i> +92 333-2964231</p>
+            </div>
+            
+            <hr class="border-gray-700 w-1/2 mx-auto my-6">
+            
+            <p class="text-sm text-gray-400 mb-2">Direct & Genuine Deals Only • Dealers Welcome</p>
+            <p class="text-xs text-gray-500">&copy; 2023 Shabbir Memon Realtor. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Simple Search Filter Logic
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.property-card');
+
+        searchInput.addEventListener('keyup', function(e) {
+            const term = e.target.value.toLowerCase();
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const details = card.querySelector('.details') ? card.querySelector('.details').textContent.toLowerCase() : '';
+                const price = card.querySelector('.price') ? card.querySelector('.price').textContent.toLowerCase() : '';
+                
+                if(title.includes(term) || details.includes(term) || price.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Trigger search on 'Enter' key to scroll to properties
+        searchInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.getElementById('properties').scrollIntoView();
+            }
+        });
+    </script>
 </body>
 </html>
+```
