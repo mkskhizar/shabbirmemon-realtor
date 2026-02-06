@@ -1,171 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shabbir Memon Realtor | ISB & KHI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shabbir Memon Realtor – ISB & KHI</title>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      fontFamily: { sans: ['Inter', 'sans-serif'] },
-      colors: {
-        primary: '#002b5c',
-        secondary: '#15727a',
-        accent: '#e63946'
-      }
-    }
-  }
-}
-</script>
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#002b5c',
+                        secondary: '#15727a',
+                        accent: '#e63946',
+                        bgLight: '#f8f9fa',
+                    }
+                }
+            }
+        }
+    </script>
 
-<style>
-.hero {
-  height: 520px;
-  background: linear-gradient(rgba(0,43,92,.75), rgba(0,43,92,.75)),
-  url('https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/hero%20banner.jpg.png')
-  center/cover no-repeat;
-}
-.hero-search {
-  display: flex;
-  max-width: 720px;
-  width: 100%;
-  margin-top: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,.25);
-}
-.hero-search input,
-.hero-search select {
-  padding: 16px;
-  border: none;
-  outline: none;
-}
-.hero-search button {
-  padding: 0 28px;
-  background: #15727a;
-  color: white;
-  font-weight: 600;
-}
-.hero-search button:hover {
-  background: #e63946;
-}
-.property-card:hover {
-  transform: translateY(-5px);
-}
-</style>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #f8f9fa; }
+
+        .hero-section {
+            height: 500px;
+            background: linear-gradient(rgba(0,43,92,0.7), rgba(0,43,92,0.7)),
+            url('https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/hero%20banner.jpg.png') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-search {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .hero-search input {
+            flex: 1;
+            padding: 16px 20px;
+            border-radius: 6px 0 0 6px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .hero-search button {
+            padding: 16px 24px;
+            border-radius: 0 6px 6px 0;
+            background: #15727a;
+            color: white;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hero-search button:hover {
+            background: #e63946;
+        }
+
+        .property-card {
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px rgba(0,0,0,.15);
+        }
+
+        .sticky-nav {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 
-<body class="font-sans bg-gray-100 flex flex-col min-h-screen">
+<body class="font-sans text-gray-800 flex flex-col min-h-screen">
 
 <!-- NAVBAR -->
-<nav class="bg-white sticky top-0 z-50 shadow">
-<div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-20">
-  <div class="flex items-center gap-3">
-    <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/logo.png.png" class="h-12">
-    <div>
-      <p class="font-bold text-primary">Shabbir Memon</p>
-      <p class="text-xs text-secondary">REALTOR ISB & KHI</p>
+<nav class="sticky-nav sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/logo.png.png" class="h-12">
+            <div>
+                <p class="font-bold text-primary">Shabbir Memon</p>
+                <p class="text-xs text-secondary">REALTOR ISB & KHI</p>
+            </div>
+        </div>
+
+        <div class="hidden md:flex gap-6 items-center">
+            <a href="#properties" class="text-secondary hover:text-accent">Listings</a>
+            <a href="#about" class="text-secondary hover:text-accent">About</a>
+            <a href="https://wa.me/923332964231" class="bg-secondary text-white px-4 py-2 rounded">
+                <i class="fab fa-whatsapp"></i> Contact
+            </a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden text-primary text-2xl">
+            <i class="fas fa-bars"></i>
+        </button>
     </div>
-  </div>
-  <a href="https://wa.me/923332964231" class="bg-secondary text-white px-4 py-2 rounded">
-    <i class="fab fa-whatsapp mr-1"></i> Contact
-  </a>
-</div>
+
+    <div id="mobile-menu" class="hidden bg-white border-t md:hidden">
+        <a href="#properties" class="block px-4 py-3">Listings</a>
+        <a href="#about" class="block px-4 py-3">About</a>
+        <a href="https://wa.me/923332964231" class="block px-4 py-3">WhatsApp</a>
+    </div>
 </nav>
 
 <!-- HERO -->
-<header class="hero flex flex-col justify-center items-center text-center text-white px-4">
-<h1 class="text-4xl md:text-5xl font-bold mb-4">Find Property. Convert Area. Decide Smart.</h1>
-<p class="text-lg text-gray-200 mb-4">Islamabad & Karachi verified real estate listings</p>
+<header class="hero-section">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">Find Your Dream Property</h1>
+    <p class="text-lg text-gray-200 max-w-2xl">
+        Premium real estate opportunities in Islamabad & Karachi.
+    </p>
 
-<!-- SEARCH-STYLE CONVERTER -->
-<div class="hero-search bg-white rounded-md overflow-hidden">
-  <input type="number" id="valueInput" placeholder="Enter area">
-  <select id="fromUnit" class="border-l">
-    <option value="sqft">Sq Ft</option>
-    <option value="sqyd">Sq Yard</option>
-    <option value="marla">Marla</option>
-    <option value="kanal">Kanal</option>
-  </select>
-  <select id="toUnit" class="border-l">
-    <option value="sqyd">Sq Yard</option>
-    <option value="sqft">Sq Ft</option>
-    <option value="marla">Marla</option>
-    <option value="kanal">Kanal</option>
-  </select>
-  <button onclick="convert()">Convert</button>
-</div>
-
-<p id="result" class="mt-4 text-lg font-semibold"></p>
+    <div class="hero-search">
+        <input type="text" id="searchInput" placeholder="Search by area, city, type...">
+        <button onclick="document.getElementById('properties').scrollIntoView()">
+            <i class="fas fa-search"></i> Search
+        </button>
+    </div>
 </header>
 
-<!-- PROPERTIES -->
-<section class="max-w-7xl mx-auto px-4 py-16">
-<h2 class="text-3xl font-bold text-primary text-center mb-10">Featured Listings</h2>
+<!-- LISTINGS -->
+<section id="properties" class="py-16 max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center text-primary mb-10">Featured Listings</h2>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-3 gap-8">
 
-<div class="property-card bg-white rounded-xl shadow transition">
-<img src="https://media.zameen.com/thumbnails/24893762-800x600.jpeg" class="h-60 w-full object-cover rounded-t-xl">
-<div class="p-6">
-<p class="text-secondary font-bold text-xl">PKR 8.5 Crore</p>
-<h3 class="font-bold text-primary">Luxury House – F-11 Islamabad</h3>
-<a href="https://wa.me/923332964231" class="block mt-4 bg-[#25D366] text-white text-center py-2 rounded">
-<i class="fab fa-whatsapp mr-1"></i> WhatsApp
-</a>
-</div>
-</div>
+        <!-- CARD -->
+        <div class="property-card bg-white rounded-xl shadow overflow-hidden">
+            <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/apartment%20for%20sale%20johar%20.jpg" class="h-64 w-full object-cover">
+            <div class="p-6">
+                <p class="text-secondary font-bold text-xl">Call for Price</p>
+                <h3 class="font-bold text-primary mt-2">3 Bed Flat – Gulistan-e-Jauhar</h3>
+                <p class="text-sm text-gray-600 mt-2">1400 Sq Ft • Lift • Generator</p>
+                <a href="https://wa.me/923332964231" class="block mt-4 bg-[#25D366] text-white text-center py-3 rounded">
+                    WhatsApp Now
+                </a>
+            </div>
+        </div>
 
-<div class="property-card bg-white rounded-xl shadow transition">
-<img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/apartment%20for%20sale%20johar%20.jpg" class="h-60 w-full object-cover rounded-t-xl">
-<div class="p-6">
-<p class="text-secondary font-bold text-xl">Call for Price</p>
-<h3 class="font-bold text-primary">3-Bed Flat – Gulistan-e-Jauhar</h3>
-<a href="https://wa.me/923332964231" class="block mt-4 bg-[#25D366] text-white text-center py-2 rounded">
-<i class="fab fa-whatsapp mr-1"></i> WhatsApp
-</a>
-</div>
-</div>
+        <!-- CARD -->
+        <div class="property-card bg-white rounded-xl shadow overflow-hidden">
+            <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building%20for%20sale%20karachi.jpg.jpg" class="h-64 w-full object-cover">
+            <div class="p-6">
+                <p class="text-secondary font-bold text-xl">Exclusive Deal</p>
+                <h3 class="font-bold text-primary mt-2">Commercial Building – Bahadurabad</h3>
+                <p class="text-sm text-gray-600 mt-2">High ROI • Prime Location</p>
+                <a href="https://wa.me/923332964231" class="block mt-4 bg-[#25D366] text-white text-center py-3 rounded">
+                    WhatsApp Now
+                </a>
+            </div>
+        </div>
 
-<div class="property-card bg-white rounded-xl shadow transition">
-<img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building%20for%20sale%20karachi.jpg.jpg" class="h-60 w-full object-cover rounded-t-xl">
-<div class="p-6">
-<p class="text-secondary font-bold text-xl">Exclusive</p>
-<h3 class="font-bold text-primary">Commercial Building – Bahadurabad</h3>
-<a href="https://wa.me/923332964231" class="block mt-4 bg-[#25D366] text-white text-center py-2 rounded">
-<i class="fab fa-whatsapp mr-1"></i> WhatsApp
-</a>
-</div>
-</div>
+        <!-- CARD -->
+        <div class="property-card bg-white rounded-xl shadow overflow-hidden">
+            <img src="https://media.zameen.com/thumbnails/24893762-800x600.jpeg" class="h-64 w-full object-cover">
+            <div class="p-6">
+                <p class="text-secondary font-bold text-xl">PKR 8.5 Crore</p>
+                <h3 class="font-bold text-primary mt-2">Luxury House – F-11 Islamabad</h3>
+                <p class="text-sm text-gray-600 mt-2">5 Bed • Servant Quarter</p>
+                <a href="https://wa.me/923332964231" class="block mt-4 bg-[#25D366] text-white text-center py-3 rounded">
+                    WhatsApp Now
+                </a>
+            </div>
+        </div>
 
-</div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="bg-bgLight py-16">
+    <div class="max-w-5xl mx-auto text-center px-4">
+        <h2 class="text-3xl font-bold text-primary mb-6">About Shabbir Memon</h2>
+        <p class="text-gray-600 text-lg">
+            Serving Islamabad & Karachi real estate since 1996.
+            Trusted, verified & genuine property deals.
+        </p>
+    </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="bg-primary text-white text-center py-10 mt-auto">
-<p class="font-bold">Shabbir Memon Realtor | ISB & KHI</p>
-<p class="text-sm text-gray-300 mt-2">Direct & Genuine Deals Only</p>
+<footer class="bg-primary text-white py-10 text-center">
+    <p class="font-bold">Shabbir Memon Realtor</p>
+    <p class="text-sm opacity-80">📞 +92 333 2964231</p>
+    <p class="text-xs opacity-60 mt-2">© 2026 All Rights Reserved</p>
 </footer>
 
-<!-- SCRIPT -->
 <script>
-const rates = { sqft:1, sqyd:9, marla:272, kanal:5440 };
-
-function convert(){
-  const v = parseFloat(valueInput.value);
-  if(isNaN(v)){ result.innerText="Enter a value"; return; }
-  const r = (v * rates[fromUnit.value]) / rates[toUnit.value];
-  result.innerText = `${v} ${fromUnit.value.toUpperCase()} = ${r.toFixed(2)} ${toUnit.value.toUpperCase()}`;
-}
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn.onclick = () => menu.classList.toggle('hidden');
 </script>
 
 </body>
