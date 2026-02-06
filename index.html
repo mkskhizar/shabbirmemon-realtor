@@ -1,71 +1,172 @@
-<div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-2xl text-gray-800 mt-6">
-    <h3 class="text-xl font-bold text-primary mb-4 text-center">
-        Land Measurement Converter
-    </h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shabbir Memon Realtor | ISB & KHI</title>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
-        <input id="valueInput" type="number" placeholder="Enter value"
-            class="border rounded-md p-3 w-full outline-none focus:ring-2 focus:ring-secondary">
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        <select id="fromUnit" class="border rounded-md p-3 w-full">
-            <option value="sqft">Sq Ft</option>
-            <option value="sqyd">Sq Yard</option>
-            <option value="marla">Marla</option>
-            <option value="kanal">Kanal</option>
-        </select>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        <select id="toUnit" class="border rounded-md p-3 w-full">
-            <option value="sqyd">Sq Yard</option>
-            <option value="sqft">Sq Ft</option>
-            <option value="marla">Marla</option>
-            <option value="kanal">Kanal</option>
-        </select>
-    </div>
-
-    <div class="flex justify-center gap-4 mt-4">
-        <button onclick="convert()"
-            class="bg-secondary hover:bg-accent text-white px-6 py-2 rounded-md font-semibold">
-            Convert
-        </button>
-
-        <button onclick="reverseUnits()"
-            class="border border-secondary text-secondary hover:bg-secondary hover:text-white px-6 py-2 rounded-md font-semibold">
-            ⇄ Reverse
-        </button>
-    </div>
-
-    <div id="result" class="text-center mt-4 font-bold text-lg text-primary"></div>
-</div>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
 
 <script>
-    const rates = {
-        sqft: 1,
-        sqyd: 9,
-        marla: 272,
-        kanal: 5440
-    };
-
-    function convert() {
-        const value = parseFloat(document.getElementById('valueInput').value);
-        const from = document.getElementById('fromUnit').value;
-        const to = document.getElementById('toUnit').value;
-
-        if (isNaN(value)) {
-            document.getElementById('result').innerText = "Please enter a value";
-            return;
-        }
-
-        const sqftValue = value * rates[from];
-        const result = sqftValue / rates[to];
-
-        document.getElementById('result').innerText =
-            `${value} ${from.toUpperCase()} = ${result.toFixed(3)} ${to.toUpperCase()}`;
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['Inter', 'sans-serif'] },
+      colors: {
+        primary: '#002b5c',
+        secondary: '#15727a',
+        accent: '#e63946'
+      }
     }
-
-    function reverseUnits() {
-        const from = document.getElementById('fromUnit');
-        const to = document.getElementById('toUnit');
-        [from.value, to.value] = [to.value, from.value];
-    }
+  }
+}
 </script>
 
+<style>
+.hero {
+  height: 520px;
+  background: linear-gradient(rgba(0,43,92,.75), rgba(0,43,92,.75)),
+  url('https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/hero%20banner.jpg.png')
+  center/cover no-repeat;
+}
+.hero-search {
+  display: flex;
+  max-width: 720px;
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.25);
+}
+.hero-search input,
+.hero-search select {
+  padding: 16px;
+  border: none;
+  outline: none;
+}
+.hero-search button {
+  padding: 0 28px;
+  background: #15727a;
+  color: white;
+  font-weight: 600;
+}
+.hero-search button:hover {
+  background: #e63946;
+}
+.property-card:hover {
+  transform: translateY(-5px);
+}
+</style>
+</head>
+
+<body class="font-sans bg-gray-100 flex flex-col min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-white sticky top-0 z-50 shadow">
+<div class="max-w-7xl mx-auto px-4 flex justify-between items-center h-20">
+  <div class="flex items-center gap-3">
+    <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/logo.png.png" class="h-12">
+    <div>
+      <p class="font-bold text-primary">Shabbir Memon</p>
+      <p class="text-xs text-secondary">REALTOR ISB & KHI</p>
+    </div>
+  </div>
+  <a href="https://wa.me/923332964231" class="bg-secondary text-white px-4 py-2 rounded">
+    <i class="fab fa-whatsapp mr-1"></i> Contact
+  </a>
+</div>
+</nav>
+
+<!-- HERO -->
+<header class="hero flex flex-col justify-center items-center text-center text-white px-4">
+<h1 class="text-4xl md:text-5xl font-bold mb-4">Find Property. Convert Area. Decide Smart.</h1>
+<p class="text-lg text-gray-200 mb-4">Islamabad & Karachi verified real estate listings</p>
+
+<!-- SEARCH-STYLE CONVERTER -->
+<div class="hero-search bg-white rounded-md overflow-hidden">
+  <input type="number" id="valueInput" placeholder="Enter area">
+  <select id="fromUnit" class="border-l">
+    <option value="sqft">Sq Ft</option>
+    <option value="sqyd">Sq Yard</option>
+    <option value="marla">Marla</option>
+    <option value="kanal">Kanal</option>
+  </select>
+  <select id="toUnit" class="border-l">
+    <option value="sqyd">Sq Yard</option>
+    <option value="sqft">Sq Ft</option>
+    <option value="marla">Marla</option>
+    <option value="kanal">Kanal</option>
+  </select>
+  <button onclick="convert()">Convert</button>
+</div>
+
+<p id="result" class="mt-4 text-lg font-semibold"></p>
+</header>
+
+<!-- PROPERTIES -->
+<section class="max-w-7xl mx-auto px-4 py-16">
+<h2 class="text-3xl font-bold text-primary text-center mb-10">Featured Listings</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+<div class="property-card bg-white rounded-xl shadow transition">
+<img src="https://media.zameen.com/thumbnails/24893762-800x600.jpeg" class="h-60 w-full object-cover rounded-t-xl">
+<div class="p-6">
+<p class="text-secondary font-bold text-xl">PKR 8.5 Crore</p>
+<h3 class="font-bold text-primary">Luxury House – F-11 Islamabad</h3>
+<a href="https://wa.me/923332964231" class="block mt-4 bg-[#25D366] text-white text-center py-2 rounded">
+<i class="fab fa-whatsapp mr-1"></i> WhatsApp
+</a>
+</div>
+</div>
+
+<div class="property-card bg-white rounded-xl shadow transition">
+<img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/apartment%20for%20sale%20johar%20.jpg" class="h-60 w-full object-cover rounded-t-xl">
+<div class="p-6">
+<p class="text-secondary font-bold text-xl">Call for Price</p>
+<h3 class="font-bold text-primary">3-Bed Flat – Gulistan-e-Jauhar</h3>
+<a href="https://wa.me/923332964231" class="block mt-4 bg-[#25D366] text-white text-center py-2 rounded">
+<i class="fab fa-whatsapp mr-1"></i> WhatsApp
+</a>
+</div>
+</div>
+
+<div class="property-card bg-white rounded-xl shadow transition">
+<img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building%20for%20sale%20karachi.jpg.jpg" class="h-60 w-full object-cover rounded-t-xl">
+<div class="p-6">
+<p class="text-secondary font-bold text-xl">Exclusive</p>
+<h3 class="font-bold text-primary">Commercial Building – Bahadurabad</h3>
+<a href="https://wa.me/923332964231" class="block mt-4 bg-[#25D366] text-white text-center py-2 rounded">
+<i class="fab fa-whatsapp mr-1"></i> WhatsApp
+</a>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-primary text-white text-center py-10 mt-auto">
+<p class="font-bold">Shabbir Memon Realtor | ISB & KHI</p>
+<p class="text-sm text-gray-300 mt-2">Direct & Genuine Deals Only</p>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+const rates = { sqft:1, sqyd:9, marla:272, kanal:5440 };
+
+function convert(){
+  const v = parseFloat(valueInput.value);
+  if(isNaN(v)){ result.innerText="Enter a value"; return; }
+  const r = (v * rates[fromUnit.value]) / rates[toUnit.value];
+  result.innerText = `${v} ${fromUnit.value.toUpperCase()} = ${r.toFixed(2)} ${toUnit.value.toUpperCase()}`;
+}
+</script>
+
+</body>
+</html>
