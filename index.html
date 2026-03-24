@@ -3,169 +3,171 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shabbir Memon Realtor – ISB & KHI</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<title>Prime Estates - Premium Real Estate in Pakistan</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <script>
 tailwind.config = {
-  theme: {
-    extend: {
-      fontFamily: { sans: ['Inter','sans-serif'] },
-      colors: {
-        primary:'#002b5c',
-        secondary:'#15727a',
-        accent:'#e63946',
-        bgLight:'#f8f9fa'
-      }
-    }
-  }
+theme: {
+extend: {
+colors: {
+primary: '#1e293b',
+accent: '#ca8a04',
+secondary: '#64748b',
+},
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+serif: ['Playfair Display', 'serif'],
+}
+}
+}
 }
 </script>
 
 <style>
-html{scroll-behavior:smooth}
-body{background:#f8f9fa}
-
-.hero-section{
-  height:500px;
-  background:
-    linear-gradient(rgba(0,43,92,.7),rgba(0,43,92,.7)),
-    url('https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/hero%20banner.jpg.png')
-    center/cover no-repeat;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  color:white;
-  padding:0 20px
-}
-
-.hero-search{display:flex;max-width:600px;width:100%;margin-top:20px;box-shadow:0 10px 25px rgba(0,0,0,.2)}
-.hero-search input{flex:1;padding:16px;border:none;border-radius:6px 0 0 6px;outline:none}
-.hero-search button{padding:16px 24px;background:#15727a;color:white;font-weight:600;border:none;border-radius:0 6px 6px 0}
-.hero-search button:hover{background:#e63946}
-
-.property-card{transition:.3s}
-.property-card:hover{transform:translateY(-5px);box-shadow:0 20px 25px rgba(0,0,0,.1)}
-
-.conversion-table th{background:#002b5c;color:white}
-.conversion-table tr:nth-child(even){background:#f2f2f2}
-
-.sticky-nav{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+body { scroll-behavior: smooth; }
+.property-card { transition: all 0.3s ease; }
+.property-card:hover { transform: translateY(-5px); }
+.img-container { overflow: hidden; }
+.img-container img { transition: transform 0.5s ease; }
+.property-card:hover .img-container img { transform: scale(1.05); }
+.city-tab.active { background:white; color:#1e293b; }
+.filter-btn.active { background:#1e293b; color:white; }
+.mode-btn.active { background:#ca8a04; color:white; }
 </style>
 </head>
 
-<body class="text-gray-800 antialiased flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-800">
 
-<!-- NAV -->
-<nav class="sticky-nav sticky top-0 z-50">
-<div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-<div class="flex items-center gap-3">
-<img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/logo.png.png" class="h-12">
+<nav class="bg-primary text-white p-4">Prime Estates</nav>
+
+<header class="relative h-[500px] flex items-center justify-center">
+<div id="hero-bg" class="absolute inset-0">
+<img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover brightness-50">
+</div>
+
+<div class="relative text-center text-white">
+<h1 class="text-4xl font-bold">
+Find Your Dream Space in <span id="hero-city-name">Karachi</span>
+</h1>
+
 <div>
-<div class="font-bold text-primary">Shabbir Memon</div>
-<div class="text-xs text-secondary">REALTOR ISB & KHI</div>
+<button onclick="switchCity('Karachi')" id="tab-karachi" class="city-tab active">Karachi</button>
+<button onclick="switchCity('Islamabad')" id="tab-islamabad" class="city-tab">Islamabad</button>
 </div>
-</div>
-
-<div class="hidden md:flex gap-6">
-<a href="#properties">House</a>
-<a href="#properties">Apartment</a>
-<a href="#properties">Commercial</a>
-<a href="#conversion">Conversion</a>
-<a href="#about">About</a>
-<a href="https://wa.me/923332964231" class="bg-secondary text-white px-4 py-2 rounded">
-<i class="fab fa-whatsapp"></i> Contact
-</a>
-</div>
-
-<button id="mobile-btn" class="md:hidden text-2xl"><i class="fas fa-bars"></i></button>
-</div>
-
-<div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4 space-y-2">
-<a href="#properties" class="block">House</a>
-<a href="#conversion" class="block">Conversion</a>
-<a href="#about" class="block">About</a>
-</div>
-</nav>
-
-<!-- HERO -->
-<header class="hero-section">
-<h1 class="text-4xl md:text-5xl font-bold mb-4">Find Your Dream Property</h1>
-<p class="max-w-2xl text-gray-200 mb-6">
-Premium real estate opportunities in Islamabad & Karachi.
-</p>
-<div class="hero-search">
-<input id="searchInput" placeholder="Search by area, city…">
-<button onclick="document.getElementById('properties').scrollIntoView()">Search</button>
 </div>
 </header>
 
-<!-- PROPERTIES -->
-<section id="properties" class="py-16 max-w-7xl mx-auto px-4">
-<h2 class="text-3xl font-bold text-center text-primary mb-12">Featured Listings</h2>
+<main class="p-6">
 
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-<div class="property-card bg-white rounded-xl shadow">
-<img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/apartment%20for%20sale%20johar%20.jpg" class="h-64 w-full object-cover">
-<div class="p-6">
-<div class="text-secondary font-bold text-xl">Call for Price</div>
-<h3 class="font-bold">3-Bed Flat – Gulistan-e-Jauhar</h3>
-<a href="https://wa.me/923332964231" class="block mt-4 bg-green-500 text-white text-center py-2 rounded">
-WhatsApp Now
-</a>
-</div>
+<div>
+<button onclick="setMode('sale')" id="mode-sale" class="mode-btn active">Sale</button>
+<button onclick="setMode('rent')" id="mode-rent" class="mode-btn">Rent</button>
 </div>
 
+<div>
+<button onclick="setCategory('all')" id="cat-all" class="filter-btn active">All</button>
+<button onclick="setCategory('house')" id="cat-house">House</button>
+<button onclick="setCategory('apartment')" id="cat-apartment">Apartment</button>
+<button onclick="setCategory('commercial')" id="cat-commercial">Commercial</button>
 </div>
-</section>
 
-<!-- CONVERSION -->
-<section id="conversion" class="bg-white py-16">
-<div class="max-w-4xl mx-auto px-4">
-<h2 class="text-3xl font-bold text-center text-primary mb-8">Land Conversion Tool</h2>
-<table class="w-full conversion-table border">
-<tr><th>Marla</th><th>Sq Ft</th><th>Kanal</th></tr>
-<tr><td>1</td><td>272</td><td>0.05</td></tr>
-<tr><td>20</td><td>5440</td><td>1</td></tr>
-</table>
-</div>
-</section>
+<h2 id="listing-title"></h2>
+<p id="listing-count"></p>
 
-<!-- ABOUT -->
-<section id="about" class="py-16 bg-bgLight">
-<div class="max-w-4xl mx-auto px-4 text-center">
-<h2 class="text-3xl font-bold text-primary mb-4">About Us</h2>
-<p>Since 1996, helping investors and families buy verified properties in Islamabad & Karachi.</p>
-<p class="mt-4">📍 Office No.4, Iqra Arcade, Gulshan-e-Iqbal Block 6, Karachi</p>
-<p>📧 khizarsorathia@gmail.com</p>
-</div>
-</section>
+<div id="property-grid"></div>
+<div id="empty-state" class="hidden">No properties found</div>
 
-<!-- FOOTER -->
-<footer class="bg-primary text-white text-center py-8 mt-auto">
-<p>© 2026 Shabbir Memon Realtor</p>
-</footer>
+</main>
 
 <script>
-document.getElementById('mobile-btn').onclick=()=>{
-document.getElementById('mobile-menu').classList.toggle('hidden')
+const properties = [
+{ id:1, city:'Karachi', mode:'sale', type:'house', title:'Luxury DHA Bungalow', location:'DHA Phase 8', price:'PKR 12.5 Crore', beds:5, baths:6, area:'500 Sq Yd', image:'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=800' }
+];
+
+let state = { city:'Karachi', mode:'sale', category:'all' };
+
+function switchCity(cityName){
+state.city = cityName;
+
+document.querySelectorAll('.city-tab').forEach(el=>{
+el.classList.remove('active');
+});
+
+document.getElementById(`tab-${cityName.toLowerCase()}`).classList.add('active');
+
+document.getElementById('hero-city-name').textContent = cityName;
+
+renderProperties();
 }
 
-document.getElementById('searchInput').addEventListener('keyup',e=>{
-document.querySelectorAll('.property-card').forEach(c=>{
-c.style.display=c.innerText.toLowerCase().includes(e.target.value.toLowerCase())?'block':'none'
-})
-})
+function setMode(mode){
+state.mode = mode;
+
+document.querySelectorAll('.mode-btn').forEach(btn=>{
+btn.classList.remove('active');
+});
+
+document.getElementById(`mode-${mode}`).classList.add('active');
+
+renderProperties();
+}
+
+function setCategory(cat){
+state.category = cat;
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+btn.classList.remove('active');
+});
+
+document.getElementById(`cat-${cat}`).classList.add('active');
+
+renderProperties();
+}
+
+function renderProperties(){
+const grid = document.getElementById('property-grid');
+const title = document.getElementById('listing-title');
+const count = document.getElementById('listing-count');
+
+const filtered = properties.filter(p =>
+p.city===state.city &&
+p.mode===state.mode &&
+(state.category==='all'||p.type===state.category)
+);
+
+title.textContent = `${state.category==='all'?'Properties':state.category} for ${state.mode} in ${state.city}`;
+count.textContent = `${filtered.length} listings`;
+
+grid.innerHTML='';
+
+if(filtered.length===0){
+document.getElementById('empty-state').classList.remove('hidden');
+return;
+}
+
+filtered.forEach(p=>{
+const card = document.createElement('div');
+
+card.innerHTML = `
+<div class="property-card">
+<img src="${p.image}" width="300">
+<h3>${p.title}</h3>
+<p>${p.location}</p>
+<p>${p.price}</p>
+</div>
+`;
+
+grid.appendChild(card);
+});
+}
+
+document.addEventListener('DOMContentLoaded', renderProperties);
 </script>
 
 </body>
