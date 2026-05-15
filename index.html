@@ -1,818 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shabbir Memon Realtor – ISB & KHI</title>
+<script>
+    // ── PAGE LOAD ANIMATION ──
+    window.addEventListener('load', () => {
+        document.body.classList.add('loaded');
+    });
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    // ── MOBILE MENU ──
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        primary:   '#002b5c',
-                        secondary: '#15727a',
-                        accent:    '#e63946',
-                        bgLight:   '#f8f9fa'
-                    }
-                }
-            }
-        }
-    </script>
+    // ── FIXED CITY SHOW/HIDE ──
+    function showCity(city) {
 
-    <style>
-        html { scroll-behavior: smooth; }
-        body { background-color: #f8f9fa; }
+        const isbSection  = document.getElementById('section-islamabad');
+        const khiSection  = document.getElementById('section-karachi');
+        const placeholder = document.getElementById('city-placeholder');
+        const tabRow      = document.getElementById('city-tab-row');
+        const tabIsb      = document.getElementById('tab-isb');
+        const tabKhi      = document.getElementById('tab-khi');
 
-        /* ── PAGE LOAD ANIMATION ── */
-        body { opacity: 0; }
-        body.loaded { animation: fadeInPage 0.8s ease forwards; }
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        // hide placeholder
+        placeholder.style.display = 'none';
 
-        .hero-section {
-            height: 520px;
-            background: linear-gradient(rgba(0,43,92,0.72), rgba(0,43,92,0.72)),
-                        url('https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/hero%20banner.jpg.png')
-                        center/cover no-repeat;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding: 0 20px;
-        }
+        // show tabs
+        tabRow.classList.remove('hidden');
 
-        /* ── HERO TEXT ANIMATION ── */
-        .hero-title {
-            opacity: 0;
-            animation: fadeUp 0.7s 0.5s ease forwards;
-        }
-        .hero-sub {
-            opacity: 0;
-            animation: fadeUp 0.7s 0.75s ease forwards;
-        }
-        .hero-buttons {
-            opacity: 0;
-            animation: fadeUp 0.7s 1s ease forwards;
-        }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        // RESET BOTH SECTIONS
+        isbSection.classList.remove('visible');
+        khiSection.classList.remove('visible');
 
-        /* ── CITY CHOICE BUTTONS ── */
-        .city-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 36px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.18);
-        }
-        .city-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.28);
-        }
-        .city-btn.isb { background: #002b5c; color: #fff; }
-        .city-btn.khi { background: #15727a; color: #fff; }
-        .city-btn.active { border-color: #e63946; }
+        isbSection.style.display = 'none';
+        khiSection.style.display = 'none';
 
-        /* ── CITY TAB NAV ── */
-        .city-tab {
-            padding: 10px 32px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            border: 2px solid #002b5c;
-            color: #002b5c;
-            background: transparent;
-        }
-        .city-tab.active {
-            background: #002b5c;
-            color: white;
-        }
-        .city-tab:hover:not(.active) {
-            background: #e8edf3;
-        }
+        // SHOW SELECTED CITY
+        if (city === 'islamabad') {
 
-        /* ── PROPERTY CARD ── */
-        .property-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-        .property-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 24px 32px -6px rgba(0,43,92,0.18);
-        }
-        .property-card .card-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0,43,92,0.55);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .property-card:hover .card-overlay { opacity: 1; }
+            isbSection.style.display = 'block';
 
-        /* ── DETAIL MODAL ── */
-        #detail-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(4px);
-            overflow-y: auto;
-        }
-        #detail-modal.open { display: flex; }
-        .modal-card {
-            background: white;
-            border-radius: 20px;
-            max-width: 700px;
-            width: 100%;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-            animation: modalIn 0.35s cubic-bezier(.22,.68,0,1.3) forwards;
-            position: relative;
-        }
-        @keyframes modalIn {
-            from { opacity:0; transform: scale(0.88); }
-            to   { opacity:1; transform: scale(1); }
-        }
-
-        /* ── CITY SECTION TRANSITION ── */
-        .city-section {
-            opacity: 0;
-            transform: translateY(16px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            display: none;
-        }
-        .city-section.visible {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .conversion-table th { background-color: #002b5c; color: white; }
-        .conversion-table tr:nth-child(even) { background-color: #f2f2f2; }
-
-        .sticky-nav {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        /* modal image */
-        .modal-img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-        }
-
-        @media (max-width: 640px) {
-            .city-btn { padding: 12px 24px; font-size: 0.9rem; }
-            .modal-img { height: 200px; }
-        }
-    </style>
-</head>
-<body class="font-sans text-gray-800 antialiased flex flex-col min-h-screen">
-
-    <!-- Navigation -->
-    <nav class="sticky-nav sticky top-0 z-50 w-full transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center gap-3">
-                    <img class="h-12 w-auto" src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/logo.png.png" alt="Shabbir Memon Logo">
-                    <div class="flex flex-col">
-                        <span class="font-bold text-primary text-lg leading-tight">Shabbir Memon</span>
-                        <span class="text-xs text-secondary font-medium tracking-wide">REALTOR ISB & KHI</span>
-                    </div>
-                </div>
-
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#properties" class="text-secondary hover:text-accent font-medium transition-colors">House for Sale</a>
-                    <a href="#properties" class="text-secondary hover:text-accent font-medium transition-colors">Apartment for Sale</a>
-                    <a href="#properties" class="text-secondary hover:text-accent font-medium transition-colors">Commercial</a>
-                    <a href="#conversion" class="text-secondary hover:text-accent font-medium transition-colors">Conversion</a>
-                    <a href="#about" class="text-secondary hover:text-accent font-medium transition-colors">About</a>
-                    <a href="https://wa.me/923332964231" class="bg-secondary hover:bg-accent text-white px-4 py-2 rounded-md font-medium transition-colors">
-                        <i class="fab fa-whatsapp mr-1"></i> Contact
-                    </a>
-                </div>
-
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-primary hover:text-accent focus:outline-none">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg">
-                <a href="#properties" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-accent hover:bg-gray-50">House for Sale</a>
-                <a href="#properties" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-accent hover:bg-gray-50">Apartment for Sale</a>
-                <a href="#properties" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-accent hover:bg-gray-50">Commercial Property</a>
-                <a href="#conversion" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-accent hover:bg-gray-50">Conversion Tool</a>
-                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-accent hover:bg-gray-50">About Us</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero-section">
-        <h1 class="hero-title text-3xl md:text-5xl font-bold mb-4 drop-shadow-md">Find Your Dream Property</h1>
-        <p class="hero-sub text-lg md:text-xl text-gray-200 mb-8 max-w-2xl">Premium real estate opportunities in Islamabad & Karachi. Verified listings, genuine deals.</p>
-
-        <!-- City Choice Buttons -->
-        <div class="hero-buttons flex flex-col sm:flex-row gap-4">
-            <button class="city-btn isb" onclick="showCity('islamabad')">
-                <i class="fas fa-city"></i> Islamabad Properties
-            </button>
-            <button class="city-btn khi" onclick="showCity('karachi')">
-                <i class="fas fa-building"></i> Karachi Properties
-            </button>
-        </div>
-    </header>
-
-    <!-- Properties Section -->
-    <section id="properties" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <!-- City Tab Switcher (shown after click) -->
-        <div id="city-tab-row" class="hidden text-center mb-10">
-            <div class="inline-flex gap-3 bg-white p-2 rounded-full shadow-md border border-gray-100">
-                <button class="city-tab" id="tab-isb" onclick="showCity('islamabad')">
-                    <i class="fas fa-city mr-2"></i>Islamabad
-                </button>
-                <button class="city-tab" id="tab-khi" onclick="showCity('karachi')">
-                    <i class="fas fa-building mr-2"></i>Karachi
-                </button>
-            </div>
-        </div>
-
-        <!-- ── PLACEHOLDER (shown before any city selected) ── -->
-        <div id="city-placeholder" class="text-center py-20">
-            <i class="fas fa-map-marker-alt text-5xl text-gray-300 mb-4"></i>
-            <p class="text-xl text-gray-400 font-medium">Select a city above to browse properties</p>
-        </div>
-
-        <!-- ══════════════ ISLAMABAD SECTION ══════════════ -->
-        <div id="section-islamabad" class="city-section">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-primary mb-2">Islamabad Listings</h2>
-                <div class="h-1 w-20 bg-accent mx-auto rounded"></div>
-                <p class="mt-4 text-gray-600">Prime properties across Islamabad's top sectors.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- ISB 1: F-11 House -->
-                <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full"
-                     onclick="openModal({
-                        badge:'Hot Listing',
-                        price:'PKR 8.5 Crore',
-                        title:'Luxury House – F-11 Islamabad',
-                        img:'https://media.zameen.com/thumbnails/24893762-800x600.jpeg',
-                        details:'5 Bed • 6 Bath • Modern Architecture • Servant Quarter • Lush Green Lawn',
-                        icon:'fa-bed',
-                        city:'Islamabad',
-                        waMsg:&quot;I'm interested in the F-11 House&quot;
-                     })">
-                    <div class="relative">
-                        <img src="https://media.zameen.com/thumbnails/24893762-800x600.jpeg" alt="House for Sale" class="w-full h-56 object-cover">
-                        <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">Hot Listing</span>
-                        <div class="card-overlay rounded-none">
-                            <span class="text-white font-bold text-base tracking-wide flex items-center gap-2">
-                                <i class="fas fa-eye"></i> View Details
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-2xl font-bold text-secondary mb-1">PKR 8.5 Crore</div>
-                        <h3 class="text-lg font-bold text-primary mb-2">Luxury House – F-11 Islamabad</h3>
-                        <p class="text-gray-500 text-sm flex-grow"><i class="fas fa-bed mr-1 text-secondary"></i> 5 Bed • 6 Bath • Modern Architecture</p>
-                        <div class="mt-4 text-secondary text-sm font-semibold flex items-center gap-1">
-                            <i class="fas fa-arrow-right"></i> Click to view full details
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ISB 2: Shop F-6 Markaz -->
-                <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full"
-                     onclick="openModal({
-                        badge:'For Sale',
-                        price:'PKR 8.50 Crore',
-                        title:'Shop For Sale – F-6 Markaz, Beverly Centre',
-                        img:'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/shop-for-sale-f6-markaz-beverly-centre.jpg',
-                        details:'Size: 12×36 • Ground Floor • Current Rent: 3 Lakh/Mo • Prime F-6 Location',
-                        icon:'fa-store',
-                        city:'Islamabad',
-                        waMsg:&quot;I'm interested in the Shop F-6 Markaz Beverly Centre&quot;
-                     })">
-                    <div class="relative">
-                        <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/shop-for-sale-f6-markaz-beverly-centre.jpg" alt="Shop for Sale F-6 Markaz" class="w-full h-56 object-cover">
-                        <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">For Sale</span>
-                        <div class="card-overlay">
-                            <span class="text-white font-bold text-base tracking-wide flex items-center gap-2">
-                                <i class="fas fa-eye"></i> View Details
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-2xl font-bold text-secondary mb-1">PKR 8.50 Crore</div>
-                        <h3 class="text-lg font-bold text-primary mb-2">Shop – F-6 Markaz, Beverly Centre</h3>
-                        <p class="text-gray-500 text-sm flex-grow"><i class="fas fa-store mr-1 text-secondary"></i> 12×36 • GF • Rent: 3 Lac/Mo</p>
-                        <div class="mt-4 text-secondary text-sm font-semibold flex items-center gap-1">
-                            <i class="fas fa-arrow-right"></i> Click to view full details
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ISB 3: Building G-10/2 -->
-                <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full"
-                     onclick="openModal({
-                        badge:'Commercial',
-                        price:'PKR 22 Crore',
-                        title:'Building For Sale – G-10/2, Islamabad',
-                        img:'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building-for-sale-g10-2-islamabad.jpg',
-                        details:'30×40 | 1200 Sq Ft • B+G+1st+Mumty • NOC Approved for NGO • Rental Income: 90 Lac/Year',
-                        icon:'fa-building',
-                        city:'Islamabad',
-                        waMsg:&quot;I'm interested in the Building G-10/2 Islamabad&quot;
-                     })">
-                    <div class="relative">
-                        <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building-for-sale-g10-2-islamabad.jpg" alt="Building G-10/2" class="w-full h-56 object-cover">
-                        <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">Commercial</span>
-                        <div class="card-overlay">
-                            <span class="text-white font-bold text-base tracking-wide flex items-center gap-2">
-                                <i class="fas fa-eye"></i> View Details
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-2xl font-bold text-secondary mb-1">PKR 22 Crore</div>
-                        <h3 class="text-lg font-bold text-primary mb-2">Building – G-10/2, Islamabad</h3>
-                        <p class="text-gray-500 text-sm flex-grow"><i class="fas fa-building mr-1 text-secondary"></i> 1200 Sq Ft • Rental: 90 Lac/Year</p>
-                        <div class="mt-4 text-secondary text-sm font-semibold flex items-center gap-1">
-                            <i class="fas fa-arrow-right"></i> Click to view full details
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ISB 4: Building F-10 Markaz -->
-                <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full"
-                     onclick="openModal({
-                        badge:'Commercial',
-                        price:'PKR 13.25 Crore',
-                        title:'Building For Sale – F-10 Markaz, Islamabad',
-                        img:'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building-for-sale-f10-markaz.jpg',
-                        details:'Total Covered: 1,215 Sq Ft • B+G+1st+2nd+Rooftop • Prime Markaz Location • High ROI Investment',
-                        icon:'fa-building',
-                        city:'Islamabad',
-                        waMsg:&quot;I'm interested in the Building F-10 Markaz&quot;
-                     })">
-                    <div class="relative">
-                        <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building-for-sale-f10-markaz.jpg" alt="Building F-10 Markaz" class="w-full h-56 object-cover">
-                        <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">Commercial</span>
-                        <div class="card-overlay">
-                            <span class="text-white font-bold text-base tracking-wide flex items-center gap-2">
-                                <i class="fas fa-eye"></i> View Details
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-2xl font-bold text-secondary mb-1">PKR 13.25 Crore</div>
-                        <h3 class="text-lg font-bold text-primary mb-2">Building – F-10 Markaz, Islamabad</h3>
-                        <p class="text-gray-500 text-sm flex-grow"><i class="fas fa-building mr-1 text-secondary"></i> 1,215 Sq Ft • B+G+1st+2nd+Rooftop</p>
-                        <div class="mt-4 text-secondary text-sm font-semibold flex items-center gap-1">
-                            <i class="fas fa-arrow-right"></i> Click to view full details
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ISB 5: Brand Rented Shop Khaadi F-10 -->
-                <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full"
-                     onclick="openModal({
-                        badge:'Hot Listing',
-                        price:'PKR 9.80 Crore',
-                        title:'Brand Rented Shop – F-10 Markaz (Khaadi)',
-                        img:'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/brand-rented-shop-f10-khaadi.jpg',
-                        details:'Emporium Mall, GF • 620 Sq Ft • Rented to Khaadi • 10-Year Agreement • Rental: 5.20 Lac/Mo • CDA Transfer',
-                        icon:'fa-store',
-                        city:'Islamabad',
-                        waMsg:&quot;I'm interested in the Brand Rented Shop F-10 Khaadi&quot;
-                     })">
-                    <div class="relative">
-                        <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/brand-rented-shop-f10-khaadi.jpg" alt="Brand Rented Khaadi" class="w-full h-56 object-cover">
-                        <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">Hot Listing</span>
-                        <div class="card-overlay">
-                            <span class="text-white font-bold text-base tracking-wide flex items-center gap-2">
-                                <i class="fas fa-eye"></i> View Details
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-2xl font-bold text-secondary mb-1">PKR 9.80 Crore</div>
-                        <h3 class="text-lg font-bold text-primary mb-2">Brand Rented – F-10 Markaz (Khaadi)</h3>
-                        <p class="text-gray-500 text-sm flex-grow"><i class="fas fa-store mr-1 text-secondary"></i> 620 Sq Ft • Rental: 5.20 Lac/Mo</p>
-                        <div class="mt-4 text-secondary text-sm font-semibold flex items-center gap-1">
-                            <i class="fas fa-arrow-right"></i> Click to view full details
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ISB 6: Brand Rented Shop WeDrink Blue Area -->
-                <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full"
-                     onclick="openModal({
-                        badge:'Hot Listing',
-                        price:'PKR 10.60 Crore',
-                        title:'Brand Rented Shop – Blue Area (WeDrink)',
-                        img:'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/brand-rented-shop-blue-area-wedrink.jpg',
-                        details:'Giza Center, GF, Blue Area • 12×48 (576 Sq Ft) • Tenant: WeDrink (International Brand) • Rental: 4.50 Lac/Mo',
-                        icon:'fa-store',
-                        city:'Islamabad',
-                        waMsg:&quot;I'm interested in the Brand Rented Shop Blue Area WeDrink&quot;
-                     })">
-                    <div class="relative">
-                        <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/brand-rented-shop-blue-area-wedrink.jpg" alt="WeDrink Blue Area" class="w-full h-56 object-cover">
-                        <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">Hot Listing</span>
-                        <div class="card-overlay">
-                            <span class="text-white font-bold text-base tracking-wide flex items-center gap-2">
-                                <i class="fas fa-eye"></i> View Details
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-2xl font-bold text-secondary mb-1">PKR 10.60 Crore</div>
-                        <h3 class="text-lg font-bold text-primary mb-2">Brand Rented – Blue Area (WeDrink)</h3>
-                        <p class="text-gray-500 text-sm flex-grow"><i class="fas fa-store mr-1 text-secondary"></i> 576 Sq Ft • Rental: 4.50 Lac/Mo</p>
-                        <div class="mt-4 text-secondary text-sm font-semibold flex items-center gap-1">
-                            <i class="fas fa-arrow-right"></i> Click to view full details
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!-- ══════════════ END ISLAMABAD ══════════════ -->
-
-        <!-- ══════════════ KARACHI SECTION ══════════════ -->
-        <div id="section-karachi" class="city-section">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-primary mb-2">Karachi Listings</h2>
-                <div class="h-1 w-20 bg-accent mx-auto rounded"></div>
-                <p class="mt-4 text-gray-600">Exclusive properties in Karachi's prime locations.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- KHI 1: Johar Apartment -->
-                <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full"
-                     onclick="openModal({
-                        badge:'For Sale',
-                        price:'Call for Price',
-                        title:'3-Bed Flat – Gulistan-e-Jauhar Block 15',
-                        img:'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/apartment%20for%20sale%20johar%20.jpg',
-                        details:'1400 Sq Ft • 2nd Floor • Lift • Generator • Road Facing • Leased • Ready to Move',
-                        icon:'fa-ruler-combined',
-                        city:'Karachi',
-                        waMsg:&quot;I'm interested in the Johar Block 15 Flat&quot;
-                     })">
-                    <div class="relative">
-                        <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/apartment%20for%20sale%20johar%20.jpg" alt="Flat for Sale" class="w-full h-56 object-cover">
-                        <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">For Sale</span>
-                        <div class="card-overlay">
-                            <span class="text-white font-bold text-base tracking-wide flex items-center gap-2">
-                                <i class="fas fa-eye"></i> View Details
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-2xl font-bold text-secondary mb-1">Call for Price</div>
-                        <h3 class="text-lg font-bold text-primary mb-2">3-Bed Flat – Gulistan-e-Jauhar Blk 15</h3>
-                        <p class="text-gray-500 text-sm flex-grow"><i class="fas fa-ruler-combined mr-1 text-secondary"></i> 1400 Sq Ft • Lift • Generator</p>
-                        <div class="mt-4 text-secondary text-sm font-semibold flex items-center gap-1">
-                            <i class="fas fa-arrow-right"></i> Click to view full details
-                        </div>
-                    </div>
-                </div>
-
-                <!-- KHI 2: Bahadurabad Commercial Building -->
-                <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full"
-                     onclick="openModal({
-                        badge:'Commercial',
-                        price:'Exclusive Deal',
-                        title:'Commercial Building – Bahadurabad',
-                        img:'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building%20for%20sale%20karachi.jpg.jpg',
-                        details:'Prime Location • High ROI • Complete Paperwork • Ideal for Investment • Bahadurabad Main',
-                        icon:'fa-building',
-                        city:'Karachi',
-                        waMsg:&quot;I'm interested in the Bahadurabad Building&quot;
-                     })">
-                    <div class="relative">
-                        <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building%20for%20sale%20karachi.jpg.jpg" alt="Building Bahadurabad" class="w-full h-56 object-cover">
-                        <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">Commercial</span>
-                        <div class="card-overlay">
-                            <span class="text-white font-bold text-base tracking-wide flex items-center gap-2">
-                                <i class="fas fa-eye"></i> View Details
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-2xl font-bold text-secondary mb-1">Exclusive Deal</div>
-                        <h3 class="text-lg font-bold text-primary mb-2">Commercial Building – Bahadurabad</h3>
-                        <p class="text-gray-500 text-sm flex-grow"><i class="fas fa-building mr-1 text-secondary"></i> Prime Location • High ROI</p>
-                        <div class="mt-4 text-secondary text-sm font-semibold flex items-center gap-1">
-                            <i class="fas fa-arrow-right"></i> Click to view full details
-                        </div>
-                    </div>
-                </div>
-
-                <!-- KHI 3: Shop Bahadurabad -->
-                <div class="property-card bg-white rounded-xl overflow-hidden shadow-md flex flex-col h-full"
-                     onclick="openModal({
-                        badge:'For Sale',
-                        price:'PKR 6.50 Crore',
-                        title:'Shop For Sale – Bahadurabad, Karachi',
-                        img:'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/shop-for-sale-bahadurabad-karachi.jpg',
-                        details:'Opposite Bahar-e-Shariat • 550 Sq Ft • Current Rent: Rs. 2 Lac/Mo • Prime Commercial Area',
-                        icon:'fa-store',
-                        city:'Karachi',
-                        waMsg:&quot;I'm interested in the Shop Bahadurabad Karachi&quot;
-                     })">
-                    <div class="relative">
-                        <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/shop-for-sale-bahadurabad-karachi.jpg" alt="Shop Bahadurabad" class="w-full h-56 object-cover">
-                        <span class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm">For Sale</span>
-                        <div class="card-overlay">
-                            <span class="text-white font-bold text-base tracking-wide flex items-center gap-2">
-                                <i class="fas fa-eye"></i> View Details
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col">
-                        <div class="text-2xl font-bold text-secondary mb-1">PKR 6.50 Crore</div>
-                        <h3 class="text-lg font-bold text-primary mb-2">Shop – Bahadurabad, Karachi</h3>
-                        <p class="text-gray-500 text-sm flex-grow"><i class="fas fa-store mr-1 text-secondary"></i> 550 Sq Ft • Rent: 2 Lac/Mo</p>
-                        <div class="mt-4 text-secondary text-sm font-semibold flex items-center gap-1">
-                            <i class="fas fa-arrow-right"></i> Click to view full details
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!-- ══════════════ END KARACHI ══════════════ -->
-
-    </section>
-
-    <!-- ══════════════ DETAIL MODAL ══════════════ -->
-    <div id="detail-modal" onclick="handleModalClick(event)">
-        <div class="modal-card" id="modal-card">
-            <!-- Close Button -->
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:text-accent transition-colors">
-                <i class="fas fa-times"></i>
-            </button>
-
-            <!-- Property Image -->
-            <img id="modal-img" src="" alt="" class="modal-img">
-
-            <!-- Badge -->
-            <span id="modal-badge" class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-bold shadow-sm"></span>
-
-            <!-- Content -->
-            <div class="p-7">
-                <div class="flex items-start justify-between mb-4 flex-wrap gap-2">
-                    <div>
-                        <div id="modal-price" class="text-3xl font-bold text-secondary mb-1"></div>
-                        <div id="modal-city-tag" class="inline-flex items-center gap-1 text-xs font-semibold bg-primary text-white px-3 py-1 rounded-full"></div>
-                    </div>
-                </div>
-
-                <h2 id="modal-title" class="text-xl font-bold text-primary mb-4"></h2>
-
-                <div class="bg-bgLight rounded-xl p-5 mb-6">
-                    <p class="font-semibold text-primary mb-2 text-sm uppercase tracking-wide">Property Details</p>
-                    <p id="modal-details" class="text-gray-700 leading-relaxed"></p>
-                </div>
-
-                <div class="border-t border-gray-100 pt-5">
-                    <p class="text-sm text-gray-500 mb-3 text-center">Interested? Contact us directly:</p>
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <a id="modal-wa-btn" href="#" target="_blank"
-                           class="flex-1 block text-center bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3 rounded-xl transition-colors text-base">
-                            <i class="fab fa-whatsapp text-lg mr-2"></i> WhatsApp Now
-                        </a>
-                        <a href="tel:+923332964231"
-                           class="flex-1 block text-center bg-primary hover:bg-secondary text-white font-bold py-3 rounded-xl transition-colors text-base">
-                            <i class="fas fa-phone-alt mr-2"></i> Call Now
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Conversion Table Section -->
-    <section id="conversion" class="bg-white py-16 border-t border-gray-200">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-primary mb-2">Land Conversion Tool</h2>
-                <p class="text-gray-600">Quick reference for real estate measurements in Pakistan.</p>
-            </div>
-
-            <div class="overflow-x-auto shadow-lg rounded-lg border border-gray-200">
-                <table class="w-full text-left border-collapse conversion-table">
-                    <thead>
-                        <tr>
-                            <th class="p-4 text-sm font-semibold tracking-wide">Marla</th>
-                            <th class="p-4 text-sm font-semibold tracking-wide">Sq. Ft</th>
-                            <th class="p-4 text-sm font-semibold tracking-wide">Sq. Yard</th>
-                            <th class="p-4 text-sm font-semibold tracking-wide">Kanal</th>
-                            <th class="p-4 text-sm font-semibold tracking-wide">Acre</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-gray-700">
-                        <tr><td class="p-4 border-b">1</td><td class="p-4 border-b">272</td><td class="p-4 border-b">30.22</td><td class="p-4 border-b">0.05</td><td class="p-4 border-b">0.006</td></tr>
-                        <tr><td class="p-4 border-b">5</td><td class="p-4 border-b">1360</td><td class="p-4 border-b">151.1</td><td class="p-4 border-b">0.25</td><td class="p-4 border-b">0.03</td></tr>
-                        <tr><td class="p-4 border-b">10</td><td class="p-4 border-b">2720</td><td class="p-4 border-b">302.2</td><td class="p-4 border-b">0.5</td><td class="p-4 border-b">0.06</td></tr>
-                        <tr><td class="p-4 border-b">20 (1 Kanal)</td><td class="p-4 border-b">5440</td><td class="p-4 border-b">604.4</td><td class="p-4 border-b">1.0</td><td class="p-4 border-b">0.125</td></tr>
-                        <tr><td class="p-4 border-b">160 (8 Kanal)</td><td class="p-4 border-b">43,560</td><td class="p-4 border-b">4,840</td><td class="p-4 border-b">8.0</td><td class="p-4 border-b">1.0</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <p class="text-xs text-gray-500 mt-4 text-center">* Measurements vary slightly by region. Standard 272 sq ft/Marla used.</p>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-bgLight">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-
-                <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-secondary">
-                    <h2 class="text-3xl font-bold text-primary mb-6">About Us</h2>
-                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
-                        Since <span class="font-bold text-secondary">1996</span>, we have been dedicated to helping investors and families find verified, premium properties in Islamabad & Karachi.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent text-xl flex-shrink-0"></i>
-                            <div>
-                                <h4 class="font-bold text-primary flex items-center gap-2">Islamabad Office <span class="text-xs bg-primary text-white px-2 py-0.5 rounded-full font-medium">ISB</span></h4>
-                                <p class="text-gray-600">Office No. 1-5, Trade Centre, F-11 Markaz, Islamabad.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-secondary text-xl flex-shrink-0"></i>
-                            <div>
-                                <h4 class="font-bold text-primary flex items-center gap-2">Karachi Office <span class="text-xs bg-secondary text-white px-2 py-0.5 rounded-full font-medium">KHI</span></h4>
-                                <p class="text-gray-600">Office No. 4, Iqra Arcade, Gulshan-e-Iqbal Block 6, Karachi.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i class="fas fa-envelope mt-1 mr-3 text-accent text-xl flex-shrink-0"></i>
-                            <div>
-                                <h4 class="font-bold text-primary">Email Us</h4>
-                                <p class="text-gray-600">khizarsorathia@gmail.com</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="relative bg-primary rounded-xl p-8 text-white text-center shadow-xl overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none"
-                         style="background-image:url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E');"></div>
-                    <h3 class="text-2xl font-bold mb-4">Want to Sell or Buy?</h3>
-                    <p class="mb-8 text-gray-200">Get a free consultation for your property today. Direct and genuine listings only.</p>
-                    <a href="https://wa.me/923332964231" class="inline-block bg-white text-primary hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
-                        <i class="fab fa-whatsapp mr-2 text-[#25D366]"></i> +92 333 2964231
-                    </a>
-                    <p class="mt-4 text-sm opacity-70">Dealers Welcome</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-primary text-white py-12 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <img class="h-16 w-auto mx-auto mb-4 opacity-90 grayscale brightness-200" src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/logo.png.png" alt="Shabbir Memon Logo">
-            <h3 class="text-xl font-bold mb-2 tracking-wide">Shabbir Memon Realtor | ISB & KHI</h3>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-6 my-6 text-gray-300">
-                <p><i class="fas fa-phone-alt mr-2"></i> +92 335-9282233</p>
-                <span class="hidden md:inline">•</span>
-                <p><i class="fab fa-whatsapp mr-2"></i> +92 333-2964231</p>
-            </div>
-            <hr class="border-gray-700 w-1/2 mx-auto my-6">
-            <p class="text-sm text-gray-400 mb-2">Direct & Genuine Deals Only • Dealers Welcome</p>
-            <p class="text-xs text-gray-500">&copy; 2026 Shabbir Memon Realtor. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        // ── PAGE LOAD ANIMATION ──
-        window.addEventListener('load', () => {
-            document.body.classList.add('loaded');
-        });
-
-        // ── MOBILE MENU ──
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-
-        // ── CITY SHOW/HIDE ──
-        function showCity(city) {
-            const isbSection   = document.getElementById('section-islamabad');
-            const khiSection   = document.getElementById('section-karachi');
-            const placeholder  = document.getElementById('city-placeholder');
-            const tabRow       = document.getElementById('city-tab-row');
-            const tabIsb       = document.getElementById('tab-isb');
-            const tabKhi       = document.getElementById('tab-khi');
-
-            // hide placeholder
-            placeholder.style.display = 'none';
-            // show tab row
-            tabRow.classList.remove('hidden');
-
-            if (city === 'islamabad') {
-                isbSection.classList.add('visible');
-                khiSection.classList.remove('visible');
-                khiSection.style.display = 'none';
-                tabIsb.classList.add('active');
-                tabKhi.classList.remove('active');
-            } else {
-                khiSection.classList.add('visible');
-                isbSection.classList.remove('visible');
-                isbSection.style.display = 'none';
-                tabKhi.classList.add('active');
-                tabIsb.classList.remove('active');
-            }
-
-            // scroll to properties
             setTimeout(() => {
-                document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+                isbSection.classList.add('visible');
+            }, 10);
+
+            tabIsb.classList.add('active');
+            tabKhi.classList.remove('active');
+
+        } else {
+
+            khiSection.style.display = 'block';
+
+            setTimeout(() => {
+                khiSection.classList.add('visible');
+            }, 10);
+
+            tabKhi.classList.add('active');
+            tabIsb.classList.remove('active');
         }
 
-        // ── MODAL OPEN ──
-        function openModal(data) {
-            document.getElementById('modal-img').src       = data.img;
-            document.getElementById('modal-img').alt       = data.title;
-            document.getElementById('modal-badge').textContent  = data.badge;
-            document.getElementById('modal-price').textContent  = data.price;
-            document.getElementById('modal-title').textContent  = data.title;
-            document.getElementById('modal-details').textContent = data.details;
-            document.getElementById('modal-city-tag').innerHTML =
-                '<i class="fas fa-map-marker-alt mr-1"></i>' + data.city;
-            document.getElementById('modal-wa-btn').href =
-                'https://wa.me/923332964231?text=' + encodeURIComponent(data.waMsg);
+        // smooth scroll
+        setTimeout(() => {
+            document.getElementById('properties')
+                .scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+    }
 
-            const modal = document.getElementById('detail-modal');
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
+    // ── MODAL OPEN ──
+    function openModal(data) {
+        document.getElementById('modal-img').src       = data.img;
+        document.getElementById('modal-img').alt       = data.title;
+        document.getElementById('modal-badge').textContent  = data.badge;
+        document.getElementById('modal-price').textContent  = data.price;
+        document.getElementById('modal-title').textContent  = data.title;
+        document.getElementById('modal-details').textContent = data.details;
+
+        document.getElementById('modal-city-tag').innerHTML =
+            '<i class="fas fa-map-marker-alt mr-1"></i>' + data.city;
+
+        document.getElementById('modal-wa-btn').href =
+            'https://wa.me/923332964231?text=' +
+            encodeURIComponent(data.waMsg);
+
+        const modal = document.getElementById('detail-modal');
+
+        modal.classList.add('open');
+
+        document.body.style.overflow = 'hidden';
+    }
+
+    // ── MODAL CLOSE ──
+    function closeModal() {
+        document.getElementById('detail-modal').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // close on backdrop click
+    function handleModalClick(e) {
+        if (e.target === document.getElementById('detail-modal')) {
+            closeModal();
         }
+    }
 
-        // ── MODAL CLOSE ──
-        function closeModal() {
-            document.getElementById('detail-modal').classList.remove('open');
-            document.body.style.overflow = '';
+    // close on ESC
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            closeModal();
         }
-
-        // close on backdrop click
-        function handleModalClick(e) {
-            if (e.target === document.getElementById('detail-modal')) closeModal();
-        }
-
-        // close on ESC
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeModal();
-        });
-    </script>
-
-</body>
-</html>
+    });
+</script>
