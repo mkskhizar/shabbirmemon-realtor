@@ -19,10 +19,10 @@
         const tabIsb      = document.getElementById('tab-isb');
         const tabKhi      = document.getElementById('tab-khi');
 
-        // hide placeholder
+        // Hide placeholder
         placeholder.style.display = 'none';
 
-        // show tabs
+        // Show city tabs
         tabRow.classList.remove('hidden');
 
         // RESET BOTH SECTIONS
@@ -56,7 +56,7 @@
             tabIsb.classList.remove('active');
         }
 
-        // smooth scroll
+        // Smooth scroll
         setTimeout(() => {
             document.getElementById('properties')
                 .scrollIntoView({ behavior: 'smooth' });
@@ -65,11 +65,13 @@
 
     // ── MODAL OPEN ──
     function openModal(data) {
-        document.getElementById('modal-img').src       = data.img;
-        document.getElementById('modal-img').alt       = data.title;
-        document.getElementById('modal-badge').textContent  = data.badge;
-        document.getElementById('modal-price').textContent  = data.price;
-        document.getElementById('modal-title').textContent  = data.title;
+
+        document.getElementById('modal-img').src = data.img;
+        document.getElementById('modal-img').alt = data.title;
+
+        document.getElementById('modal-badge').textContent = data.badge;
+        document.getElementById('modal-price').textContent = data.price;
+        document.getElementById('modal-title').textContent = data.title;
         document.getElementById('modal-details').textContent = data.details;
 
         document.getElementById('modal-city-tag').innerHTML =
@@ -92,14 +94,14 @@
         document.body.style.overflow = '';
     }
 
-    // close on backdrop click
+    // Close modal on backdrop click
     function handleModalClick(e) {
         if (e.target === document.getElementById('detail-modal')) {
             closeModal();
         }
     }
 
-    // close on ESC
+    // Close modal on ESC key
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
             closeModal();
