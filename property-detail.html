@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Property Detail – Shabbir Memon Realtor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary:   #002b5c;
+            --secondary: #15727a;
+            --accent:    #e63946;
+            --gold:      #c9a84c;
+            --bg:        #f3f6f9;
+            --card:      #ffffff;
+            --border:    #e4eaf0;
+            --text:      #222;
+            --muted:     #6b7280;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* ── NAV ── */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 12px rgba(0,43,92,0.07);
+        }
+        .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+        }
+        .nav-brand { display: flex; align-items: center; gap: 10px; }
+        .nav-brand img { height: 42px; }
+        .nav-brand-text { display: flex; flex-direction: column; }
+        .nav-brand-text span:first-child { font-weight: 800; color: var(--primary); font-size: 1rem; }
+        .nav-brand-text span:last-child { font-size: 0.65rem; color: var(--secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: #fff;
+            padding: 9px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        .nav-back:hover { background: var(--accent); }
+
+        /* ── BREADCRUMB ── */
+        .breadcrumb {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            font-size: 0.8rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .breadcrumb a { color: var(--secondary); }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb i { font-size: 0.6rem; }
+
+        /* ── PAGE LAYOUT ── */
+        .page-wrap {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 28px;
+            align-items: start;
+        }
+        @media (max-width: 900px) {
+            .page-wrap { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+        }
+
+        /* ── MAIN COLUMN ── */
+        .main-col { display: flex; flex-direction: column; gap: 24px; }
+
+        /* ── PROPERTY HEADER ── */
+        .prop-header {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 24px 28px;
+            border: 1px solid var(--border);
+        }
+        .prop-badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        .prop-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .badge-hot     { background: #fef3c7; color: #92400e; }
+        .badge-sale    { background: #dbeafe; color: #1e40af; }
+        .badge-comm    { background: #d1fae5; color: #065f46; }
+        .badge-exc     { background: #ede9fe; color: #5b21b6; }
+        .badge-new { background: #fee2e2; color: #991b1b; }
+
+        .prop-title {
+            font-size: clamp(1.2rem, 3vw, 1.75rem);
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .prop-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--secondary);
+            font-size: 0.88rem;
+            font-weight: 500;
+        }
+        .prop-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .prop-price {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .prop-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+        .stat-pill {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .stat-pill i { color: var(--secondary); font-size: 0.9rem; }
+
+        /* ── GALLERY ── */
+        .gallery-card {
+            background: var(--card);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .gallery-main {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            background: #111;
+            overflow: hidden;
+        }
+        @media (max-width: 600px) { .gallery-main { height: 240px; } }
+
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.35s ease;
+        }
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.55);
+            color: #fff;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.2s;
+            z-index: 5;
+        }
+        .gallery-arrow:hover { background: var(--accent); }
+        .gallery-arrow.left { left: 14px; }
+        .gallery-arrow.right { right: 14px; }
+        .gallery-counter {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .gallery-thumbs {
+            display: flex;
+            gap: 8px;
+            padding: 12px;
+            overflow-x: auto;
+            background: #f9fafb;
+            border-top: 1px solid var(--border);
+        }
+        .gallery-thumbs::-webkit-scrollbar { height: 4px; }
+        .gallery-thumbs::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+        .thumb {
+            flex-shrink: 0;
+            width: 80px;
+            height: 60px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .thumb.active { border-color: var(--secondary); }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* ── OVERVIEW TABS ── */
+        .tabs-bar {
+            background: var(--card);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .tabs-nav {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+        .tabs-nav::-webkit-scrollbar { height: 0; }
+        .tab-btn {
+            flex-shrink: 0;
+            padding: 14px 22px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            border: none;
+            background: none;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--secondary); }
+        .tab-btn:hover:not(.active) { color: var(--text); background: var(--bg); }
+        .tab-content { padding: 28px; display: none; }
+        .tab-content.active { display: block; }
+
+        /* Overview tab */
+        .details-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--secondary);
+            margin-bottom: 14px;
+        }
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+        .detail-row {
+            display: contents;
+        }
+        .detail-row > div {
+            padding: 12px 18px;
+            font-size: 0.88rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .detail-row > div:nth-child(odd) {
+            color: var(--muted);
+            font-weight: 500;
+            background: #f9fafb;
+        }
+        .detail-row > div:nth-child(even) {
+            color: var(--text);
+            font-weight: 600;
+        }
+        .detail-row:last-child > div { border-bottom: none; }
+
+        /* Description */
+        .desc-text {
+            font-size: 0.92rem;
+            line-height: 1.9;
+            color: #444;
+        }
+        .desc-text p { margin-bottom: 14px; }
+        .desc-text strong { color: var(--primary); }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            background: var(--bg);
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .feature-item i { color: var(--secondary); font-size: 1rem; width: 18px; text-align: center; }
+
+        /* ── SIDEBAR ── */
+        .sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 84px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-box {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,43,92,0.08);
+        }
+        .contact-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .contact-added {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 13px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-wa { background: #25D366; color: #fff; }
+        .btn-wa:hover { background: #128C7E; }
+        .btn-call { background: var(--primary); color: #fff; }
+        .btn-call:hover { background: var(--accent); }
+
+        .contact-divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 14px 0;
+            color: var(--muted);
+            font-size: 0.75rem;
+        }
+        .contact-divider::before, .contact-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .agent-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            background: var(--bg);
+            border-radius: 10px;
+            margin-top: 4px;
+        }
+        .agent-logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        .agent-name { font-weight: 700; font-size: 0.9rem; color: var(--primary); }
+        .agent-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            background: var(--secondary);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        /* quick info sidebar box */
+        .quick-info {
+            background: var(--card);
+            border-radius: 14px;
+            padding: 20px 24px;
+            border: 1px solid var(--border);
+        }
+        .quick-info h4 {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--secondary);
+            margin-bottom: 14px;
+        }
+        .qi-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+        .qi-item:last-child { border-bottom: none; }
+        .qi-label { color: var(--muted); font-weight: 500; }
+        .qi-val { font-weight: 700; color: var(--text); text-align: right; }
+
+        /* ── SIMILAR PROPERTIES ── */
+        .similar-section { margin-top: 8px; }
+        .similar-section h3 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 18px;
+        }
+        .similar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .sim-card {
+            background: var(--card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .sim-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,43,92,0.12); }
+        .sim-card img { width: 100%; height: 170px; object-fit: cover; display: block; }
+        .sim-body { padding: 14px 16px; }
+        .sim-price { font-size: 1.1rem; font-weight: 800; color: var(--secondary); margin-bottom: 4px; }
+        .sim-title { font-size: 0.88rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; line-height: 1.4; }
+        .sim-meta { font-size: 0.78rem; color: var(--muted); }
+        .sim-meta i { color: var(--secondary); margin-right: 3px; }
+
+        /* ── NOT FOUND ── */
+        .not-found {
+            text-align: center;
+            padding: 100px 24px;
+        }
+        .not-found i { font-size: 4rem; color: #ccc; margin-bottom: 20px; display: block; }
+        .not-found h2 { font-size: 1.5rem; color: var(--primary); margin-bottom: 10px; }
+        .not-found p { color: var(--muted); margin-bottom: 24px; }
+
+        /* ── BADGE COLOR MAP ── */
+        [data-badge="Hot Listing"] { background: #fef3c7; color: #92400e; }
+        [data-badge="For Sale"]    { background: #dbeafe; color: #1e40af; }
+        [data-badge="Commercial"]  { background: #d1fae5; color: #065f46; }
+        [data-badge="Exclusive Deal"] { background: #ede9fe; color: #5b21b6; }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="shabbir-memon-realtor.html" class="nav-brand">
+            <img src="https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/logo.png.png" alt="Logo">
+            <div class="nav-brand-text">
+                <span>Shabbir Memon</span>
+                <span>Realtor ISB & KHI</span>
+            </div>
+        </a>
+        <a href="shabbir-memon-realtor.html" class="nav-back">
+            <i class="fas fa-arrow-left"></i> Back to Listings
+        </a>
+    </div>
+</nav>
+
+<!-- DYNAMIC CONTENT -->
+<div id="page-content"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  PROPERTY DATABASE
+// ═══════════════════════════════════════════════
+const PROPERTIES = {
+    'isb-f11-house': {
+        badge: 'Hot Listing',
+        city: 'Islamabad',
+        location: 'F-11, Islamabad Capital',
+        price: 'PKR 8.5 Crore',
+        title: 'Luxury House – F-11 Islamabad',
+        type: 'House',
+        purpose: 'For Sale',
+        area: '1 Kanal',
+        bedrooms: '5',
+        bathrooms: '6',
+        added: '2 days ago',
+        images: [
+            'https://media.zameen.com/thumbnails/24893762-800x600.jpeg',
+            'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&w=800',
+            'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&w=800'
+        ],
+        description: `<p>Welcome to this exceptional <strong>Luxury House in F-11, Islamabad</strong> — one of the most sought-after addresses in the capital. This magnificent property combines modern architecture with thoughtful design to deliver a truly premium living experience.</p>
+        <p>Spanning across <strong>1 Kanal</strong>, the residence features 5 spacious bedrooms, each with en-suite bathrooms and built-in wardrobes. The master suite offers a walk-in closet and private lounge area. A generous lawn surrounds the property, perfect for outdoor entertaining.</p>
+        <p>The kitchen is fully fitted with imported cabinetry and appliances. A dedicated servant quarter and utility area ensure complete convenience. Located in a peaceful, tree-lined street of F-11 Markaz, the property provides easy access to major arterials, schools, hospitals, and commercial hubs.</p>
+        <p><strong>Ideal for:</strong> End-use families and investors seeking premium capital appreciation in Islamabad's prime sector.</p>`,
+        features: [
+            { icon: 'fa-bed', label: '5 Bedrooms' },
+            { icon: 'fa-bath', label: '6 Bathrooms' },
+            { icon: 'fa-car', label: 'Car Porch (3 cars)' },
+            { icon: 'fa-tree', label: 'Lush Green Lawn' },
+            { icon: 'fa-user', label: 'Servant Quarter' },
+            { icon: 'fa-bolt', label: 'Generator Backup' },
+            { icon: 'fa-water', label: 'Underground Water Tank' },
+            { icon: 'fa-shield-halved', label: 'CCTV & Security' },
+            { icon: 'fa-gas-pump', label: 'Gas Central Heating' },
+            { icon: 'fa-wifi', label: 'Fiber Ready' }
+        ],
+        details: [
+            ['Type', 'Residential House'],
+            ['Purpose', 'For Sale'],
+            ['Price', 'PKR 8.5 Crore'],
+            ['Area', '1 Kanal (5,445 sq ft)'],
+            ['Bedrooms', '5'],
+            ['Bathrooms', '6'],
+            ['Floors', 'Ground + Upper + Roof'],
+            ['Location', 'F-11, Islamabad Capital'],
+        ],
+        waMsg: "I'm interested in the F-11 Luxury House (PKR 8.5 Crore). Please share more details.",
+        similar: ['isb-f6-shop', 'isb-f10-building', 'isb-f10-khaadi']
+    },
+    'isb-f6-shop': {
+        badge: 'For Sale',
+        city: 'Islamabad',
+        location: 'F-6 Markaz, Beverly Centre, Islamabad',
+        price: 'PKR 8.50 Crore',
+        title: 'Shop For Sale – F-6 Markaz, Beverly Centre',
+        type: 'Shop',
+        purpose: 'For Sale',
+        area: '432 sq ft (12×36)',
+        bedrooms: '-',
+        bathrooms: '1',
+        added: '1 week ago',
+        images: [
+            'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/shop-for-sale-f6-markaz-beverly-centre.jpg',
+            'https://images.pexels.com/photos/264507/pexels-photo-264507.jpeg?auto=compress&w=800'
+        ],
+        description: `<p>A prime commercial shop in the prestigious <strong>Beverly Centre, F-6 Markaz, Islamabad</strong> — one of the most iconic and high-footfall commercial addresses in the city. This ground-floor shop is currently generating a handsome rental income of <strong>PKR 3 Lakh per month</strong>.</p>
+        <p>Measuring <strong>12×36 feet</strong>, the shop enjoys an excellent frontage in the Beverly Centre's busy ground floor. F-6 Markaz is home to embassies, upscale restaurants, boutiques, and corporate offices, ensuring a steady stream of affluent foot traffic year-round.</p>
+        <p>This is a <strong>turnkey investment property</strong> — ready income from day one with solid appreciation potential. CDA allotment paperwork is available and clean. Ideal for investors seeking safe, stable returns in Islamabad's commercial core.</p>`,
+        features: [
+            { icon: 'fa-store', label: 'Ground Floor' },
+            { icon: 'fa-money-bill', label: 'Rent: 3 Lac/Mo' },
+            { icon: 'fa-file-contract', label: 'CDA Allotted' },
+            { icon: 'fa-chart-line', label: 'High Appreciation' },
+            { icon: 'fa-car', label: 'Parking Available' },
+            { icon: 'fa-bolt', label: 'WAPDA Connection' }
+        ],
+        details: [
+            ['Type', 'Commercial Shop'],
+            ['Purpose', 'For Sale'],
+            ['Price', 'PKR 8.50 Crore'],
+            ['Size', '12×36 (432 sq ft)'],
+            ['Floor', 'Ground Floor'],
+            ['Current Rent', 'PKR 3 Lakh/Month'],
+            ['Authority', 'CDA Allotted'],
+            ['Location', 'Beverly Centre, F-6 Markaz, Islamabad'],
+        ],
+        waMsg: "I'm interested in the Shop at F-6 Markaz Beverly Centre (PKR 8.50 Crore). Please share more details.",
+        similar: ['isb-f10-khaadi', 'isb-blue-area-wedrink', 'isb-g10-building']
+    },
+    'isb-g10-building': {
+        badge: 'Commercial',
+        city: 'Islamabad',
+        location: 'G-10/2, Islamabad Capital',
+        price: 'PKR 22 Crore',
+        title: 'Building For Sale – G-10/2, Islamabad',
+        type: 'Commercial Building',
+        purpose: 'For Sale',
+        area: '1,200 sq ft (30×40)',
+        bedrooms: '-',
+        bathrooms: '4',
+        added: '3 days ago',
+        images: [
+            'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building-for-sale-g10-2-islamabad.jpg',
+            'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&w=800'
+        ],
+        description: `<p>An outstanding commercial investment opportunity — a full <strong>multi-story building in G-10/2, Islamabad</strong>, generating a remarkable <strong>PKR 90 Lac per annum</strong> in rental income. This property is NOC-approved and currently rented to an established NGO on a long-term lease.</p>
+        <p>The building sits on a <strong>30×40 plot</strong> with a total covered area of 1,200 sq ft across Basement + Ground + 1st Floor + Mumty. Each floor is well-planned with dedicated utilities, CCTV, and backup power systems. G-10/2 is a prime location surrounded by schools, hospitals, and major commercial activity.</p>
+        <p>With an annual rental yield above <strong>4%</strong> and consistent capital appreciation in G-sector, this is a rare chance to own a fully income-generating commercial building in Islamabad at a competitive price.</p>`,
+        features: [
+            { icon: 'fa-building', label: 'B+G+1st+Mumty' },
+            { icon: 'fa-money-bill', label: 'Rent: 90 Lac/Year' },
+            { icon: 'fa-file-contract', label: 'NOC Approved' },
+            { icon: 'fa-users', label: 'NGO Tenant' },
+            { icon: 'fa-bolt', label: 'Generator Backup' },
+            { icon: 'fa-shield-halved', label: 'CCTV Security' }
+        ],
+        details: [
+            ['Type', 'Commercial Building'],
+            ['Purpose', 'For Sale'],
+            ['Price', 'PKR 22 Crore'],
+            ['Plot Size', '30×40 (1,200 sq ft)'],
+            ['Floors', 'B + G + 1st + Mumty'],
+            ['Annual Rental', 'PKR 90 Lakh'],
+            ['NOC Status', 'Approved'],
+            ['Location', 'G-10/2, Islamabad Capital'],
+        ],
+        waMsg: "I'm interested in the Building at G-10/2 Islamabad (PKR 22 Crore). Please share more details.",
+        similar: ['isb-f10-building', 'isb-f6-shop', 'isb-blue-area-wedrink']
+    },
+    'isb-f10-building': {
+        badge: 'Commercial',
+        city: 'Islamabad',
+        location: 'F-10 Markaz, Islamabad Capital',
+        price: 'PKR 13.25 Crore',
+        title: 'Building For Sale – F-10 Markaz, Islamabad',
+        type: 'Commercial Building',
+        purpose: 'For Sale',
+        area: '1,215 sq ft',
+        bedrooms: '-',
+        bathrooms: '5',
+        added: '5 days ago',
+        images: [
+            'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building-for-sale-f10-markaz.jpg',
+            'https://images.pexels.com/photos/1838640/pexels-photo-1838640.jpeg?auto=compress&w=800'
+        ],
+        description: `<p>A premium <strong>multi-story commercial building in F-10 Markaz, Islamabad</strong> — one of the capital's busiest and most sought-after commercial districts. Priced at <strong>PKR 13.25 Crore</strong>, this offers exceptional value for the location and size.</p>
+        <p>The building spans <strong>Basement + Ground + 1st + 2nd Floor + Rooftop</strong> with a total covered area of 1,215 sq ft. F-10 Markaz hosts a dense commercial ecosystem of restaurants, banks, retail brands, and offices — ensuring constant demand and high rental returns.</p>
+        <p>Ideal for investors looking to either lease floor-by-floor for maximum yield or establish a corporate head office in Islamabad's prime markaz zone. Paperwork is clean and transfer-ready.</p>`,
+        features: [
+            { icon: 'fa-building', label: 'B+G+1st+2nd+Roof' },
+            { icon: 'fa-chart-line', label: 'High ROI' },
+            { icon: 'fa-file-contract', label: 'Clear Title' },
+            { icon: 'fa-car', label: 'Basement Parking' },
+            { icon: 'fa-bolt', label: 'Power Backup' },
+            { icon: 'fa-wifi', label: 'Fiber Ready' }
+        ],
+        details: [
+            ['Type', 'Commercial Building'],
+            ['Purpose', 'For Sale'],
+            ['Price', 'PKR 13.25 Crore'],
+            ['Covered Area', '1,215 sq ft'],
+            ['Floors', 'B + G + 1st + 2nd + Rooftop'],
+            ['Location', 'F-10 Markaz, Islamabad'],
+            ['Title', 'Clear & Transferable'],
+            ['Ideal For', 'Investment / Corporate Office'],
+        ],
+        waMsg: "I'm interested in the Building at F-10 Markaz (PKR 13.25 Crore). Please share more details.",
+        similar: ['isb-g10-building', 'isb-f6-shop', 'isb-f10-khaadi']
+    },
+    'isb-f10-khaadi': {
+        badge: 'Hot Listing',
+        city: 'Islamabad',
+        location: 'Emporium Mall, F-10 Markaz, Islamabad',
+        price: 'PKR 9.80 Crore',
+        title: 'Brand Rented Shop – F-10 Markaz (Khaadi)',
+        type: 'Commercial Shop',
+        purpose: 'For Sale',
+        area: '620 sq ft',
+        bedrooms: '-',
+        bathrooms: '1',
+        added: 'Today',
+        images: [
+            'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/brand-rented-shop-f10-khaadi.jpg',
+            'https://images.pexels.com/photos/5632398/pexels-photo-5632398.jpeg?auto=compress&w=800'
+        ],
+        description: `<p>An incredibly rare investment opportunity — a <strong>brand-rented shop in Emporium Mall, F-10 Markaz, Islamabad</strong>, currently tenanted by <strong>Khaadi</strong>, Pakistan's leading fashion brand, under a <strong>10-year rental agreement</strong>.</p>
+        <p>The shop sits on the ground floor of Emporium Mall with 620 sq ft of prime retail space. The current rental income is <strong>PKR 5.20 Lakh per month</strong>, making this one of the highest-yielding commercial investments available in Islamabad today.</p>
+        <p>With a nationally recognized anchor tenant, CDA transfer, and a long-term lease in place, this is a <strong>passive income asset</strong> with virtually zero vacancy risk. Capital appreciation in F-10 Markaz has historically outperformed other sectors. An ideal portfolio addition for HNI investors.</p>`,
+        features: [
+            { icon: 'fa-store', label: 'Ground Floor' },
+            { icon: 'fa-money-bill', label: 'Rent: 5.20 Lac/Mo' },
+            { icon: 'fa-handshake', label: '10-Year Agreement' },
+            { icon: 'fa-tag', label: 'Khaadi Tenant' },
+            { icon: 'fa-file-contract', label: 'CDA Transfer' },
+            { icon: 'fa-chart-line', label: 'Zero Vacancy Risk' }
+        ],
+        details: [
+            ['Type', 'Commercial Shop'],
+            ['Purpose', 'For Sale'],
+            ['Price', 'PKR 9.80 Crore'],
+            ['Area', '620 sq ft'],
+            ['Floor', 'Ground Floor'],
+            ['Tenant', 'Khaadi (National Brand)'],
+            ['Monthly Rent', 'PKR 5.20 Lakh'],
+            ['Lease Duration', '10 Years'],
+        ],
+        waMsg: "I'm interested in the Brand Rented Khaadi Shop F-10 (PKR 9.80 Crore). Please share more details.",
+        similar: ['isb-blue-area-wedrink', 'isb-f6-shop', 'isb-f10-building']
+    },
+    'isb-blue-area-wedrink': {
+        badge: 'Hot Listing',
+        city: 'Islamabad',
+        location: 'Giza Center, Blue Area, Islamabad',
+        price: 'PKR 10.60 Crore',
+        title: 'Brand Rented Shop – Blue Area (WeDrink)',
+        type: 'Commercial Shop',
+        purpose: 'For Sale',
+        area: '576 sq ft (12×48)',
+        bedrooms: '-',
+        bathrooms: '1',
+        added: 'Today',
+        images: [
+            'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/brand-rented-shop-blue-area-wedrink.jpg',
+            'https://images.pexels.com/photos/3944405/pexels-photo-3944405.jpeg?auto=compress&w=800'
+        ],
+        description: `<p>A premium brand-rented commercial unit in <strong>Giza Center, Blue Area, Islamabad</strong> — Pakistan's financial and corporate hub. The property is currently tenanted by <strong>WeDrink</strong>, an international beverage brand, generating a steady <strong>PKR 4.50 Lakh per month</strong> in rental income.</p>
+        <p>The shop measures <strong>12×48 feet (576 sq ft)</strong> on the ground floor of Giza Center — a landmark building in Blue Area's prime commercial corridor. Blue Area hosts the headquarters of major banks, multinationals, government departments, and embassies, ensuring exceptional foot traffic and brand visibility.</p>
+        <p>With an international tenant, prime Blue Area address, and strong yield, this is a <strong>top-tier commercial investment</strong> offering both capital security and steady monthly cash flow. Ideal for investors seeking Islamabad's most prestigious commercial addresses.</p>`,
+        features: [
+            { icon: 'fa-store', label: 'Ground Floor' },
+            { icon: 'fa-money-bill', label: 'Rent: 4.50 Lac/Mo' },
+            { icon: 'fa-globe', label: 'International Tenant' },
+            { icon: 'fa-building', label: 'Giza Center' },
+            { icon: 'fa-file-contract', label: 'Clean Title' },
+            { icon: 'fa-chart-line', label: 'High Yield' }
+        ],
+        details: [
+            ['Type', 'Commercial Shop'],
+            ['Purpose', 'For Sale'],
+            ['Price', 'PKR 10.60 Crore'],
+            ['Area', '12×48 ft (576 sq ft)'],
+            ['Floor', 'Ground Floor'],
+            ['Tenant', 'WeDrink (International)'],
+            ['Monthly Rent', 'PKR 4.50 Lakh'],
+            ['Location', 'Giza Center, Blue Area, Islamabad'],
+        ],
+        waMsg: "I'm interested in the WeDrink Brand Shop Blue Area (PKR 10.60 Crore). Please share more details.",
+        similar: ['isb-f10-khaadi', 'isb-f6-shop', 'isb-g10-building']
+    },
+    'khi-johar-flat': {
+        badge: 'For Sale',
+        city: 'Karachi',
+        location: 'Gulistan-e-Jauhar Block 15, Karachi',
+        price: 'Call for Price',
+        title: '3-Bed Flat – Gulistan-e-Jauhar Block 15',
+        type: 'Apartment',
+        purpose: 'For Sale',
+        area: '1,400 sq ft',
+        bedrooms: '3',
+        bathrooms: '3',
+        added: '4 days ago',
+        images: [
+            'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/apartment%20for%20sale%20johar%20.jpg',
+            'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&w=800'
+        ],
+        description: `<p>A beautifully maintained <strong>3-bedroom flat in Gulistan-e-Jauhar Block 15, Karachi</strong> — one of the city's most well-connected and affordable residential areas. This <strong>1,400 sq ft</strong> apartment on the 2nd floor offers a comfortable and practical living experience.</p>
+        <p>The flat features 3 spacious bedrooms, 3 bathrooms, a large drawing-dining area, and a well-appointed kitchen. Key amenities include a building <strong>elevator, generator backup</strong>, and a main road-facing view for added security and natural light.</p>
+        <p>The property is <strong>leased and ready to move in</strong>. Gulistan-e-Jauhar offers excellent connectivity to main roads, schools, hospitals, and shopping centers. Ideal for families seeking a comfortable home in central Karachi.</p>`,
+        features: [
+            { icon: 'fa-bed', label: '3 Bedrooms' },
+            { icon: 'fa-bath', label: '3 Bathrooms' },
+            { icon: 'fa-elevator', label: 'Lift / Elevator' },
+            { icon: 'fa-bolt', label: 'Generator Backup' },
+            { icon: 'fa-road', label: 'Road Facing' },
+            { icon: 'fa-key', label: 'Ready to Move' },
+            { icon: 'fa-file-contract', label: 'Leased Property' },
+            { icon: 'fa-building', label: '2nd Floor' }
+        ],
+        details: [
+            ['Type', 'Apartment / Flat'],
+            ['Purpose', 'For Sale'],
+            ['Price', 'Call for Price'],
+            ['Area', '1,400 sq ft'],
+            ['Floor', '2nd Floor'],
+            ['Bedrooms', '3'],
+            ['Bathrooms', '3'],
+            ['Location', 'Block 15, Gulistan-e-Jauhar, Karachi'],
+        ],
+        waMsg: "I'm interested in the 3-Bed Flat in Gulistan-e-Jauhar Block 15. Please share the price and details.",
+        similar: ['khi-bahadurabad-building', 'khi-bahadurabad-shop']
+    },
+    'khi-bahadurabad-building': {
+        badge: 'Commercial',
+        city: 'Karachi',
+        location: 'Bahadurabad Main, Karachi',
+        price: 'Exclusive Deal',
+        title: 'Commercial Building – Bahadurabad',
+        type: 'Commercial Building',
+        purpose: 'For Sale',
+        area: 'Contact for Details',
+        bedrooms: '-',
+        bathrooms: 'Multiple',
+        added: '6 days ago',
+        images: [
+            'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/building%20for%20sale%20karachi.jpg.jpg',
+            'https://images.pexels.com/photos/1470405/pexels-photo-1470405.jpeg?auto=compress&w=800'
+        ],
+        description: `<p>An <strong>exclusive commercial building in Bahadurabad Main, Karachi</strong> — one of the city's most prominent and high-footfall commercial districts. This is a <strong>serious investor-grade opportunity</strong> with exceptional potential for both rental income and capital growth.</p>
+        <p>Bahadurabad is a landmark commercial area of Karachi with constant commercial activity, surrounded by restaurants, medical facilities, retail chains, and corporate offices. The building offers a prime Main Bahadurabad frontage with high visibility and vehicle access.</p>
+        <p>Complete paperwork and legal documentation are available. This listing is available for serious buyers only. Price and full details shared on direct inquiry with the agent. <strong>Dealers and investors are welcome.</strong></p>`,
+        features: [
+            { icon: 'fa-building', label: 'Prime Location' },
+            { icon: 'fa-chart-line', label: 'High ROI' },
+            { icon: 'fa-file-contract', label: 'Complete Paperwork' },
+            { icon: 'fa-users', label: 'Dealers Welcome' },
+            { icon: 'fa-road', label: 'Main Road Frontage' },
+            { icon: 'fa-money-bill', label: 'Rental Income Ready' }
+        ],
+        details: [
+            ['Type', 'Commercial Building'],
+            ['Purpose', 'For Sale'],
+            ['Price', 'On Request (Exclusive Deal)'],
+            ['Location', 'Bahadurabad Main, Karachi'],
+            ['Documentation', 'Complete & Clear'],
+            ['Best For', 'Investors / Dealers'],
+        ],
+        waMsg: "I'm interested in the Commercial Building in Bahadurabad Karachi. Please share price and details.",
+        similar: ['khi-johar-flat', 'khi-bahadurabad-shop']
+    },
+    'khi-bahadurabad-shop': {
+        badge: 'For Sale',
+        city: 'Karachi',
+        location: 'Bahadurabad, Karachi',
+        price: 'PKR 6.50 Crore',
+        title: 'Shop For Sale – Bahadurabad, Karachi',
+        type: 'Commercial Shop',
+        purpose: 'For Sale',
+        area: '550 sq ft',
+        bedrooms: '-',
+        bathrooms: '1',
+        added: '1 week ago',
+        images: [
+            'https://raw.githubusercontent.com/mkskhizar/khizarsorathiarealtor/main/shop-for-sale-bahadurabad-karachi.jpg',
+            'https://images.pexels.com/photos/2467285/pexels-photo-2467285.jpeg?auto=compress&w=800'
+        ],
+        description: `<p>A well-located <strong>commercial shop in Bahadurabad, Karachi</strong>, situated <strong>opposite Bahar-e-Shariat</strong> — a well-known landmark in one of Karachi's most active commercial zones. The property is currently rented at <strong>PKR 2 Lakh per month</strong>, offering immediate returns on investment.</p>
+        <p>Measuring <strong>550 sq ft</strong>, the shop enjoys frontage in a high-footfall area with excellent visibility and accessibility from main roads. Bahadurabad is a densely commercial zone with year-round buyer activity, making this a low-risk, high-demand investment.</p>
+        <p>Clean documentation available. Transfer straightforward. Ideal for investors seeking a steady-income commercial property in Karachi at an accessible entry price of <strong>PKR 6.50 Crore</strong>.</p>`,
+        features: [
+            { icon: 'fa-store', label: '550 sq ft' },
+            { icon: 'fa-money-bill', label: 'Rent: 2 Lac/Mo' },
+            { icon: 'fa-road', label: 'Main Road Facing' },
+            { icon: 'fa-file-contract', label: 'Clean Title' },
+            { icon: 'fa-chart-line', label: 'Stable Returns' },
+            { icon: 'fa-bolt', label: 'KESC Connection' }
+        ],
+        details: [
+            ['Type', 'Commercial Shop'],
+            ['Purpose', 'For Sale'],
+            ['Price', 'PKR 6.50 Crore'],
+            ['Area', '550 sq ft'],
+            ['Current Rent', 'PKR 2 Lakh/Month'],
+            ['Landmark', 'Opp. Bahar-e-Shariat'],
+            ['Location', 'Bahadurabad, Karachi'],
+            ['Documentation', 'Clear Title'],
+        ],
+        waMsg: "I'm interested in the Shop at Bahadurabad Karachi (PKR 6.50 Crore). Please share more details.",
+        similar: ['khi-bahadurabad-building', 'khi-johar-flat']
+    }
+};
+
+// ═══════════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════════
+function getParam(key) {
+    return new URLSearchParams(window.location.search).get(key);
+}
+
+function badgeClass(badge) {
+    const map = { 'Hot Listing':'badge-hot','For Sale':'badge-sale','Commercial':'badge-comm','Exclusive Deal':'badge-exc' };
+    return map[badge] || 'badge-sale';
+}
+
+function renderPage() {
+    const id = getParam('id');
+    const prop = PROPERTIES[id];
+    const content = document.getElementById('page-content');
+
+    if (!prop) {
+        content.innerHTML = `
+            <div class="not-found">
+                <i class="fas fa-home"></i>
+                <h2>Property Not Found</h2>
+                <p>This listing may have been removed or the link is incorrect.</p>
+                <a href="shabbir-memon-realtor.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:#fff;padding:12px 28px;border-radius:10px;font-weight:700;">
+                    <i class="fas fa-arrow-left"></i> Back to Listings
+                </a>
+            </div>`;
+        return;
+    }
+
+    document.title = prop.title + ' – Shabbir Memon Realtor';
+
+    // build similar cards
+    const similarHTML = (prop.similar || []).map(sid => {
+        const s = PROPERTIES[sid];
+        if (!s) return '';
+        return `<div class="sim-card" onclick="window.location.href='property-detail.html?id=${sid}'">
+            <img src="${s.images[0]}" alt="${s.title}" loading="lazy">
+            <div class="sim-body">
+                <div class="sim-price">${s.price}</div>
+                <div class="sim-title">${s.title}</div>
+                <div class="sim-meta"><i class="fas fa-map-marker-alt"></i>${s.location}</div>
+            </div>
+        </div>`;
+    }).join('');
+
+    // build image thumbs
+    const thumbsHTML = prop.images.map((img, i) =>
+        `<div class="thumb ${i===0?'active':''}" onclick="switchImg(${i})" id="thumb-${i}">
+            <img src="${img}" alt="Photo ${i+1}" loading="lazy">
+        </div>`
+    ).join('');
+
+    // build details rows
+    const detailsHTML = prop.details.map(([label, val]) =>
+        `<div class="detail-row"><div>${label}</div><div>${val}</div></div>`
+    ).join('');
+
+    // build features
+    const featuresHTML = prop.features.map(f =>
+        `<div class="feature-item"><i class="fas ${f.icon}"></i>${f.label}</div>`
+    ).join('');
+
+    content.innerHTML = `
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="shabbir-memon-realtor.html">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="shabbir-memon-realtor.html#properties">${prop.city}</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>${prop.title}</span>
+    </div>
+
+    <div class="page-wrap">
+        <!-- MAIN -->
+        <div class="main-col">
+
+            <!-- HEADER -->
+            <div class="prop-header">
+                <div class="prop-badge-row">
+                    <span class="prop-badge ${badgeClass(prop.badge)}">${prop.badge}</span>
+                    <span class="prop-badge" style="background:#f0fdf4;color:#15803d;">
+                        <i class="fas fa-circle-check" style="margin-right:4px;font-size:0.7rem"></i>Verified Listing
+                    </span>
+                </div>
+                <h1 class="prop-title">${prop.title}</h1>
+                <div class="prop-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    ${prop.location}
+                </div>
+                <div class="prop-price-row">
+                    <div class="prop-price">${prop.price}</div>
+                    <div class="prop-stats">
+                        ${prop.area !== 'Contact for Details' ? `<div class="stat-pill"><i class="fas fa-ruler-combined"></i>${prop.area}</div>` : ''}
+                        ${prop.bedrooms !== '-' ? `<div class="stat-pill"><i class="fas fa-bed"></i>${prop.bedrooms} Bed</div>` : ''}
+                        ${prop.bathrooms !== '-' ? `<div class="stat-pill"><i class="fas fa-bath"></i>${prop.bathrooms} Bath</div>` : ''}
+                    </div>
+                </div>
+            </div>
+
+            <!-- GALLERY -->
+            <div class="gallery-card">
+                <div class="gallery-main">
+                    <img id="gallery-main-img" src="${prop.images[0]}" alt="${prop.title}">
+                    ${prop.images.length > 1 ? `
+                    <button class="gallery-arrow left" onclick="prevImg()"><i class="fas fa-chevron-left"></i></button>
+                    <button class="gallery-arrow right" onclick="nextImg()"><i class="fas fa-chevron-right"></i></button>
+                    <div class="gallery-counter" id="gallery-counter">1 / ${prop.images.length}</div>
+                    ` : ''}
+                </div>
+                ${prop.images.length > 1 ? `<div class="gallery-thumbs">${thumbsHTML}</div>` : ''}
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs-bar">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" onclick="switchTab('overview',this)">Overview</button>
+                    <button class="tab-btn" onclick="switchTab('description',this)">Description</button>
+                    <button class="tab-btn" onclick="switchTab('features',this)">Features & Amenities</button>
+                </div>
+
+                <!-- OVERVIEW TAB -->
+                <div class="tab-content active" id="tab-overview">
+                    <div class="details-label">Property Details</div>
+                    <div class="details-grid">${detailsHTML}</div>
+                </div>
+
+                <!-- DESCRIPTION TAB -->
+                <div class="tab-content" id="tab-description">
+                    <div class="details-label">About This Property</div>
+                    <div class="desc-text">${prop.description}</div>
+                </div>
+
+                <!-- FEATURES TAB -->
+                <div class="tab-content" id="tab-features">
+                    <div class="details-label">Features & Amenities</div>
+                    <div class="features-grid">${featuresHTML}</div>
+                </div>
+            </div>
+
+            <!-- SIMILAR -->
+            ${similarHTML ? `<div class="similar-section">
+                <h3>Similar Properties</h3>
+                <div class="similar-grid">${similarHTML}</div>
+            </div>` : ''}
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-sticky">
+
+                <!-- CONTACT BOX -->
+                <div class="contact-box">
+                    <div class="contact-price">${prop.price}</div>
+                    <div class="contact-added"><i class="fas fa-clock" style="margin-right:4px"></i>Added ${prop.added}</div>
+                    <a href="https://wa.me/923332964231?text=${encodeURIComponent(prop.waMsg)}" target="_blank">
+                        <button class="contact-btn btn-wa">
+                            <i class="fab fa-whatsapp" style="font-size:1.2rem"></i> WhatsApp
+                        </button>
+                    </a>
+                    <a href="tel:+923332964231">
+                        <button class="contact-btn btn-call">
+                            <i class="fas fa-phone-alt"></i> Call Now
+                        </button>
+                    </a>
+                    <div class="contact-divider">or</div>
+                    <div class="agent-box">
+                        <div class="agent-logo"><i class="fas fa-user-tie"></i></div>
+                        <div>
+                            <div class="agent-name">Shabbir Memon</div>
+                            <div class="agent-tag">Verified Agent</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUICK INFO -->
+                <div class="quick-info">
+                    <h4>Quick Info</h4>
+                    <div class="qi-item"><span class="qi-label">Type</span><span class="qi-val">${prop.type}</span></div>
+                    <div class="qi-item"><span class="qi-label">Purpose</span><span class="qi-val">${prop.purpose}</span></div>
+                    <div class="qi-item"><span class="qi-label">City</span><span class="qi-val">${prop.city}</span></div>
+                    ${prop.area !== 'Contact for Details' ? `<div class="qi-item"><span class="qi-label">Area</span><span class="qi-val">${prop.area}</span></div>` : ''}
+                    ${prop.bedrooms !== '-' ? `<div class="qi-item"><span class="qi-label">Bedrooms</span><span class="qi-val">${prop.bedrooms}</span></div>` : ''}
+                </div>
+
+            </div>
+        </div>
+    </div>`;
+
+    // Init gallery state
+    window._imgIdx = 0;
+    window._imgCount = prop.images.length;
+    window._images = prop.images;
+}
+
+// Gallery controls
+function switchImg(idx) {
+    window._imgIdx = idx;
+    const img = document.getElementById('gallery-main-img');
+    img.style.opacity = '0';
+    setTimeout(() => { img.src = window._images[idx]; img.style.opacity = '1'; }, 200);
+    const counter = document.getElementById('gallery-counter');
+    if (counter) counter.textContent = `${idx+1} / ${window._imgCount}`;
+    document.querySelectorAll('.thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
+}
+function nextImg() { switchImg((window._imgIdx + 1) % window._imgCount); }
+function prevImg() { switchImg((window._imgIdx - 1 + window._imgCount) % window._imgCount); }
+
+// Tab controls
+function switchTab(name, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+}
+
+// Run
+renderPage();
+</script>
+</body>
+</html>
